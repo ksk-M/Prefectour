@@ -16,6 +16,9 @@ ja:
         remember_me: ログインを記憶する
         sign_in_count: ログイン回数
         updated_at: 更新日
+        name: お名前
+        introduction: 自己紹介
+        prefecture_code: 都道府県
     models:
       user: ユーザー
   devise:
