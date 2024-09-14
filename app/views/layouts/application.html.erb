@@ -27,8 +27,8 @@
               </a>
               <ul class="dropdown-menu dropdown-menu-end text-small" aria-labelledby="dropdownUser1">
                 <li><a class="dropdown-item" href="#">New project...</a></li>
+                <li><%= link_to "マイページ", user_path(current_user.id), class: "dropdown-item" %></li>
                 <li><%= link_to "アカウント編集", edit_user_registration_path, class: "dropdown-item" %></li>
-                <li><a class="dropdown-item" href="#">Profile</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "dropdown-item py-0" %></li>
               </ul>
