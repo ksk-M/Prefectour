@@ -10,8 +10,8 @@
       <div class="row">
         <div class="col-12 p-0">
           <ul class="m-0">
-            <li class="list-unstyled"><%= current_user.prefecture.name %></li>
-            <li class="list-unstyled"><%= current_user.introduction %></li>
+            <li class="list-unstyled"><%= current_user.prefecture.name if current_user.prefecture.present? %></li>
+            <li class="list-unstyled"><%= current_user.introduction if current_user.introduction.present? %></li>
           </ul>
         </div>
       </div>
