@@ -19,8 +19,11 @@ ja:
         name: お名前
         introduction: 自己紹介
         prefecture_code: 都道府県
+      group:
+        name: グループ名
     models:
       user: ユーザー
+      group: グループ
   devise:
     failure:
       already_authenticated: すでにログインしています。

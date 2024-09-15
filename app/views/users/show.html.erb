@@ -21,3 +21,29 @@
     </div>
   </div>
 </div>
+
+<div class="container-md mt-2">
+  <div class="row">
+    <div class="col-12 col-sm-5 px-0 pe-sm-2">
+      <div class="py-2 px-1 bg-white shadow-sm rounded-3">
+        <h6 class="fw-bold text-center">所属グループ</h6>
+        <table>
+          <% @groups.each do |group| %>
+            <tr>
+              <th><%= link_to group.name, group_path(group.id) %></th>
+              <td>image</td>
+            </tr>
+          <% end %>
+        </table>
+        <p class="text-end mt-1 me-1 mb-0">
+          <%= link_to "グループ を作る", new_group_path %>
+        </p>
+      </div>
+    </div>
+    <div class="col-12 col-sm-7 px-0 ps-sm-2 mt-2 mt-sm-0">
+      <div class="bg-white shadow-sm rounded-3">
+        Japan
+      </div>
+    </div>
+  </div>
+</div>

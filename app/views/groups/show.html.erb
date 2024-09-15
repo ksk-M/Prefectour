@@ -1,0 +1,9 @@
+<%= @group.name %>
+<ul>
+  <% @group.users.each do |user| %>
+    <li><%= user.name %></li>
+  <% end %>
+</ul>
+<%= link_to "編集", edit_group_path(@group.id) %>
+<%= link_to "グループを削除", group_path, method: :delete, data: { confirm: "本当に削除しますか？" } %>
+<%= link_to "マイページ", user_path(current_user.id) %>

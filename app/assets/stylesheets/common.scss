@@ -15,3 +15,8 @@ body {
 .delete-account-button {
   text-align: right;
 }
+
+.check-boxes input[type=checkbox] {
+  transform: scale(1.5);
+  margin-right: 5px;
+}
