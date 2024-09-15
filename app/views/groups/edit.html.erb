@@ -10,7 +10,7 @@
         </div>
         <p class="small mb-2">ユーザーを選択して下さい。</p>
         <div class="mb-4">
-          <%= f.collection_check_boxes :user_ids, User.all, :id, :name do |b| %>
+          <%= f.collection_check_boxes :user_ids, User.all, :id, :name, { disabled: current_user.id } do |b| %>
             <span class="check-boxes me-3"><%= b.label { b.check_box + b.text } %></span>
           <% end %>
         </div>

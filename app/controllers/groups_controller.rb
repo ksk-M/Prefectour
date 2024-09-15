@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.new(group_params)
+    @group = Group.new(group_params_with_current_user)
     if @group.save
       flash[:notice] = "グループを登録しました"
       redirect_to user_path(current_user.id)
@@ -24,7 +24,7 @@ class GroupsController < ApplicationController
 
   def update
     @group = Group.find(params[:id])
-    if @group.update(group_params)
+    if @group.update(group_params_with_current_user)
       flash[:notice] = "グループを更新しました"
       redirect_to user_path(current_user.id)
     else
@@ -44,5 +44,11 @@ class GroupsController < ApplicationController
 
   def group_params
     params.require(:group).permit(:name, { user_ids: [] })
+  end
+
+  def group_params_with_current_user
+    params = group_params
+    params[:user_ids] << current_user.id
+    params
   end
 end
