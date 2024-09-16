@@ -38,7 +38,15 @@
           <% @groups.each do |group| %>
             <tr>
               <th><%= link_to group.name, group_path(group.id) %></th>
-              <td>image</td>
+              <td class="ps-3">
+                <% group.users.sort.reject{ |user| user == current_user }.each do |user| %>
+                  <% if user.icon.attached? %>
+                    <%= image_tag user.icon.variant(resize: '100x100'), alt: "アイコン", class: "group-icon rounded-circle" %>
+                  <% else %>
+                    <%= image_tag 'icon_user.png', alt: "アイコン", class: "group-icon rounded-circle" %>
+                  <% end %>
+                <% end %>
+              </td>
             </tr>
           <% end %>
         </table>
