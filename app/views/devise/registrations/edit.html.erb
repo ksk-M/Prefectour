@@ -2,18 +2,28 @@
   <div class="row py-3 py-md-5 d-flex justify-content-center shadow-sm rounded-3 form-wrapper">
     <div class="col-11 col-sm-9 col-md-7 p-0">
       <h4 class="mb-3 fw-bold text-center">アカウント編集</h4>
-      <p class="small mb-4">変更する項目を入力の上、現在のパスワードを入力して下さい。</p>
+      <p class="small text-secondary mb-3 mb-sm-4">変更事項を入力の上、現在のパスワードを入力して下さい。</p>
 
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
+        <div class="mb-4 d-flex flex-column flex-sm-row align-items-center gap-2 gap-sm-4">
+          <%= f.label :icon do %>
+            <% if current_user.icon.attached? %>
+              <%= image_tag current_user.icon.variant(resize: '100x100'), alt: "アイコン画像", class: "icon rounded-circle" %>
+            <% else %>
+              <%= image_tag 'icon_user.png', alt: "アイコン", class: "icon rounded-circle" %>
+            <% end %>
+          <% end %>
+          <%= f.file_field :icon, class: "form-control form-control-sm" %>
+        </div>
 
-        <div class="mb-3">
-          <%= f.label :name %>
+        <div class="mb-3 d-flex align-items-center gap-4">
+          <%= f.label :name, class: "text-nowrap" %>
           <%= f.text_field :name, autocomplete: "name", class: "form-control form-control-sm" %>
         </div>
 
-        <div class="mb-3 d-flex align-items-center">
-          <%= f.label :prefecture_code, class: "me-2" %>
+        <div class="mb-3 d-flex align-items-center gap-2">
+          <%= f.label :prefecture_code %>
           <%= f.collection_select(:prefecture_code, JpPrefecture::Prefecture.all, :code, :name, { include_blank: "----" }, { class: "form-select form-select-sm w-auto" }) %>
         </div>
 
