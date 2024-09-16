@@ -3,7 +3,9 @@ class User < ApplicationRecord
   has_many :groups, through: :group_users
   has_one_attached :icon
 
-  validates :name, presence: :true
+  validates :name, presence: :true, length: { maximum: 15 }
+  validates :introduction, length: { maximum: 80 }
+
   devise :database_authenticatable, :registerable,
          :rememberable, :validatable, :trackable
 

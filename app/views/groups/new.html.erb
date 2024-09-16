@@ -6,7 +6,7 @@
       <%= form_with model: @group do |f| %>
         <div class="mb-4">
           <%= f.label :name %>
-          <%= f.text_field :name, autofocus: true, class: "form-control form-control-sm" %>
+          <%= f.text_field :name, autofocus: true, placeholder: "15文字以内", class: "form-control form-control-sm" %>
         </div>
         <p class="small mb-2">追加するユーザーを選択して下さい。</p>
         <div class="mb-4">
