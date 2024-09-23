@@ -1,0 +1,43 @@
+body {
+  background-color: #F5F6F4
+}
+
+.form-wrapper {
+  background-color: #fff;
+}
+
+.delete-account {
+  margin-top: 90px;
+  border: 1px solid;
+  border-radius: 10px;
+}
+
+.delete-account-button {
+  text-align: right;
+}
+
+.check-boxes input[type=checkbox] {
+  transform: scale(1.5);
+  margin-right: 5px;
+}
+
+.icon {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border: 1px solid rgba(128, 128, 128, 0.372);
+}
+
+.header-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border: 1px solid rgba(128, 128, 128, 0.372);
+}
+
+.group-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  border: 1px solid rgba(128, 128, 128, 0.372);
+}
