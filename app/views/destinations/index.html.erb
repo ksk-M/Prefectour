@@ -1,0 +1,19 @@
+<div class="container-md mt-2 bg-white shadow-sm rounded-3">
+  <div class="row py-2 d-flex justify-content-end">
+    <div class="col-12">
+      <h4>行きたいところリスト</h4>
+      <%= link_to "目的地を登録", new_destination_path %>
+
+      <table class="table table-striped mt-3">
+        <% @destination.each do |destination| %>
+          <tr>
+            <th><%= link_to destination.name, destination_path(destination.id) %></th>
+            <td class="d-none d-md-block"><%= destination.note %></td>
+            <td><%= "非公開" if destination.is_private %></td>
+            <td><%= link_to "編集", edit_destination_path(destination.id) %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
