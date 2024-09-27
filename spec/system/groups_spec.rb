@@ -29,31 +29,37 @@ RSpec.describe "Groups", type: :system do
         check "another_user"
         click_button "作成"
         expect(current_path).to eq user_path(user.id)
-        expect(page).to have_content "グループを登録しました"
-        expect(page).to have_content "テストグループ"
+        expect(page).to have_content "「テストグループ」を登録しました"
+        within '.my-groups' do
+          expect(page).to have_content "テストグループ"
+        end
       end
     end
   end
 
   describe "グループ編集" do
+    let(:group) { create(:group, name: "テストグループ") }
+
     it "更新できること" do
-      group = Group.last # 先のテストで登録したグループを取得
       visit edit_group_path(group.id)
       fill_in "グループ名", with: "update"
       check "another_user"
       click_button "変更"
       expect(current_path).to eq user_path(user.id)
-      expect(page).to have_content "グループを更新しました"
-      expect(page).to have_content "update"
+      expect(page).to have_content "「update」を更新しました"
+      within '.my-groups' do
+        expect(page).to have_content "update"
+      end
     end
 
     it "削除できること" do
-      group = Group.last # 先のテストで登録したグループを取得
       visit group_path(group.id)
       click_link "グループを削除"
       expect(current_path).to eq user_path(user.id)
-      expect(page).to have_content "グループを削除しました"
-      expect(page).not_to have_content "update"
+      expect(page).to have_content "「テストグループ」を削除しました"
+      within '.my-groups' do
+        expect(page).not_to have_content "テストグループ"
+      end
     end
   end
 end

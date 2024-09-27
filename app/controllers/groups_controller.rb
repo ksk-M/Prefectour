@@ -6,7 +6,7 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(group_params_with_current_user)
     if @group.save
-      flash[:notice] = "グループを登録しました"
+      flash[:notice] = "「#{@group.name}」を登録しました"
       redirect_to user_path(current_user.id)
     else
       flash.now[:alert] = "グループの登録に失敗しました"
@@ -25,7 +25,7 @@ class GroupsController < ApplicationController
   def update
     @group = Group.find(params[:id])
     if @group.update(group_params_with_current_user)
-      flash[:notice] = "グループを更新しました"
+      flash[:notice] = "「#{@group.name}」を更新しました"
       redirect_to user_path(current_user.id)
     else
       flash.now[:alert] = "グループの更新に失敗しました"
@@ -36,7 +36,7 @@ class GroupsController < ApplicationController
   def destroy
     @group = Group.find(params[:id])
     @group.destroy
-    flash[:notice] = "グループを削除しました"
+    flash[:notice] = "「#{@group.name}」を削除しました"
     redirect_to user_path(current_user.id)
   end
 
