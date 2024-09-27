@@ -1,7 +1,62 @@
-<div class="container my-md-4" style="max-width: 768px;">
-  <div class="row py-3 py-md-5 d-flex justify-content-center shadow-sm rounded-3 form-wrapper">
+<div id='map'></div>
+<script>
+  //初期マップの設定
+  let map
+  let marker
+  function initMap(){
+    geocoder = new google.maps.Geocoder()
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 34.7024854, lng: 135.4959506},
+      zoom: 15,
+    });
+  }
+
+  //検索後のマップ作成
+  let geocoder
+  let aft
+  function codeAddress(){
+    let inputAddress = document.getElementById('address').value;
+    geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+      if (status == 'OK') {
+        //マーカーが複数できないようにする
+        if (aft == true){
+            marker.setMap(null);
+        }
+        //新しくマーカーを作成する
+        map.setCenter(results[0].geometry.location);
+          marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location,
+          draggable: true
+        });
+        //二度目以降か判断
+        aft = true
+        //検索時に緯度・経度・場所の名前を入力する
+        document.getElementById('lat').value = results[0].geometry.location.lat();
+        document.getElementById('lng').value = results[0].geometry.location.lng();
+        document.getElementById('name').value = inputAddress
+        // マーカーのドロップ（ドラッグ終了）時のイベント
+        google.maps.event.addListener( marker, 'dragend', function(ev){
+          document.getElementById('lat').value = ev.latLng.lat();
+          document.getElementById('lng').value = ev.latLng.lng();
+        });
+      } else {
+        alert('該当する情報が見つかりませんでした。');
+      }
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_PLATFORM_API_KEY'] %>&callback=initMap" async defer></script>
+
+<div class="container my-md-3" style="max-width: 768px;">
+  <div class="row py-4 d-flex justify-content-center shadow-sm rounded-3 form-wrapper">
     <div class="col-10 col-sm-7 col-md-6 p-0">
       <h4 class="mb-4 fw-bold text-center">行きたいところを追加</h4>
+      <div class="d-flex">
+        <input id="address" class="form-control form-control-sm me-2" type="textbox" placeholder="場所を検索" autofocus=true>
+        <input type="button" value="検 索" class="btn btn-outline-primary" onclick="codeAddress()">
+      </div>
+      <p class="mt-2">マーカーを動かすと位置を調整できます。</p>
       <%= render "shared/errors", obj: @destination %>
       <%= render "shared/destination_form", destination: @destination %>
     </div>

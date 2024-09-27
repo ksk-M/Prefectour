@@ -1,28 +1,20 @@
 <%= form_with model: destination do |f| %>
-  <div class="mb-3">
+  <div class="mb-2">
     <%= f.label :name %>
-    <%= f.text_field :name, autofocus: true, class: "form-control form-control-sm" %>
+    <%= f.text_field :name, id: :name, class: "form-control form-control-sm" %>
   </div>
-  <div class="mb-3">
+  <div class="mb-2">
     <%= f.label :note %>
     <%= f.text_area :note, class: "form-control form-control-sm" %>
   </div>
-  <div class="mb-3">
-    <%= f.label :latitude %>
-    <%= f.text_field :latitude, class: "form-control form-control-sm" %>
-  </div>
-  <div class="mb-3">
-    <%= f.label :longitude %>
-    <%= f.text_field :longitude, class: "form-control form-control-sm" %>
-  </div>
-  <div class="mb-3 form-check">
+  <div class="mb-2 form-check">
     <%= f.check_box :is_private, {class: "form-check-input"}, "true", "false" %>
     <%= f.label :is_private, "非公開にする場合はチェック", class: "form-check-label" %>
   </div>
-  <div>
-    <%= f.hidden_field :user_id, value: current_user.id %>
-  </div>
-  <div class="mb-3 d-grid gap-2">
+  <%= f.hidden_field :latitude, id: :lat %>
+  <%= f.hidden_field :longitude, id: :lng %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <div class="d-grid gap-2">
     <%= f.submit '保存', class: "btn btn-danger rounded-pill" %>
   </div>
 <% end %>

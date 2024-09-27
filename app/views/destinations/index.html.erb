@@ -1,11 +1,41 @@
+<div id='map'></div>
+<script>
+  function initMap() {
+    let map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 34.7024854, lng: 135.4959506},
+      zoom: 10,
+    });
+    let transitLayer = new google.maps.TransitLayer();
+    transitLayer.setMap(map);
+
+    <% @destinations.each do |destination| %>
+      (function() {
+        let markerLatLng = { lat: <%= destination.latitude %>, lng: <%= destination.longitude %> };
+        let marker = new google.maps.Marker({
+          position: markerLatLng,
+          map: map
+        });
+        //マーカーをクリックしたとき、詳細情報を表示
+        let infowindow = new google.maps.InfoWindow({
+          position: markerLatLng,
+          content: "<a href='<%= destination_url(destination.id) %>'><%= destination.name %></a>"
+        }); //詳細ページへのリンクを表示
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+      })();
+    <% end %>
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_PLATFORM_API_KEY'] %>&callback=initMap" async defer></script>
+
 <div class="container-md mt-2 bg-white shadow-sm rounded-3">
   <div class="row py-2 d-flex justify-content-end">
     <div class="col-12">
-      <h4>行きたいところリスト</h4>
+      <h4>私の行きたいところリスト</h4>
       <%= link_to "目的地を登録", new_destination_path %>
-
       <table class="table table-striped mt-3">
-        <% @destination.each do |destination| %>
+        <% @destinations.each do |destination| %>
           <tr>
             <th><%= link_to destination.name, destination_path(destination.id) %></th>
             <td class="d-none d-md-block"><%= destination.note %></td>

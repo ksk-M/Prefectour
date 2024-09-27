@@ -1,6 +1,6 @@
 class DestinationsController < ApplicationController
   def index
-    @destination = Destination.all
+    @destinations = current_user.destinations
   end
 
   def new
@@ -10,7 +10,7 @@ class DestinationsController < ApplicationController
   def create
     @destination = Destination.new(destination_params)
     if @destination.save
-      flash[:notice] = "行きたいところを登録しました。"
+      flash[:notice] = "「#{@destination.name} 」を登録しました。"
       redirect_to destinations_path
     else
       flash.now[:alert] = "行きたいところの登録に失敗しました"
@@ -29,7 +29,7 @@ class DestinationsController < ApplicationController
   def update
     @destination = Destination.find(params[:id])
     if @destination.update(destination_params)
-      flash[:notice] = "行きたいところを更新しました。"
+      flash[:notice] = "「#{@destination.name} 」を更新しました。"
       redirect_to destinations_path
     else
       flash.now[:alert] = "行きたいところの更新に失敗しました。"
@@ -40,7 +40,7 @@ class DestinationsController < ApplicationController
   def destroy
     @destination = Destination.find(params[:id])
     @destination.destroy
-    flash[:notice] = "行きたいところリストから #{@destination.name} を削除しました。"
+    flash[:notice] = "行きたいところリストから「#{@destination.name}」を削除しました。"
     redirect_to destinations_path
   end
 
