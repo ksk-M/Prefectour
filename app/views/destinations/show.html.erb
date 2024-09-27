@@ -23,6 +23,7 @@
   <div class="row py-4 d-flex justify-content-center shadow-sm rounded-3 form-wrapper">
     <div class="col-11 p-0">
       <h4><%= @destination.name %></h4>
+      <p class="text-secondary"><%= @destination.address %></p>
       <%= @destination.note %>
       <% if @destination.is_private %>
         <p>非公開</p>

@@ -31,10 +31,11 @@
         });
         //二度目以降か判断
         aft = true
-        //検索時に緯度・経度・場所の名前を入力する
+        //検索時に緯度・経度・場所の名前・住所を入力する
         document.getElementById('lat').value = results[0].geometry.location.lat();
         document.getElementById('lng').value = results[0].geometry.location.lng();
-        document.getElementById('name').value = inputAddress
+        document.getElementById('name').value = inputAddress;
+        document.getElementById('address_on_map').value = results[0].formatted_address;
         // マーカーのドロップ（ドラッグ終了）時のイベント
         google.maps.event.addListener( marker, 'dragend', function(ev){
           document.getElementById('lat').value = ev.latLng.lat();
@@ -56,7 +57,7 @@
         <input id="address" class="form-control form-control-sm me-2" type="textbox" placeholder="場所を検索" autofocus=true>
         <input type="button" value="検 索" class="btn btn-outline-primary" onclick="codeAddress()">
       </div>
-      <p class="mt-2">マーカーを動かすと位置を調整できます。</p>
+      <p class="mt-2">マーカーを動かすと位置を微調整できます。</p>
       <%= render "shared/errors", obj: @destination %>
       <%= render "shared/destination_form", destination: @destination %>
     </div>

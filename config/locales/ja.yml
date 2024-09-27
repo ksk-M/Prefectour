@@ -25,6 +25,7 @@ ja:
       destination:
         name: 場所の名前
         note: メモ
+        address: 住所
     models:
       user: ユーザー
       group: グループ
