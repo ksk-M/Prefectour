@@ -5,6 +5,8 @@ class DestinationsController < ApplicationController
 
   def new
     @destination = Destination.new
+    # アクションに応じてバリデーションエラーメッセージを変更
+    @new_record = true
   end
 
   def create
@@ -24,6 +26,8 @@ class DestinationsController < ApplicationController
 
   def edit
     @destination = Destination.find(params[:id])
+    # アクションに応じてバリデーションエラーメッセージを変更
+    @new_record = false
   end
 
   def update
