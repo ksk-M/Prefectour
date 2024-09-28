@@ -53,12 +53,12 @@
   <div class="row py-4 d-flex justify-content-center shadow-sm rounded-3 form-wrapper">
     <div class="col-10 col-sm-7 col-md-6 p-0">
       <h4 class="mb-4 fw-bold text-center">行きたいところを追加</h4>
+      <%= render "shared/errors", obj: @destination %>
       <div class="d-flex">
         <input id="address" class="form-control form-control-sm me-2" type="textbox" placeholder="場所を検索" autofocus=true>
         <input type="button" value="検 索" class="btn btn-outline-primary" onclick="codeAddress()">
       </div>
-      <p class="mt-2">マーカーを動かすと位置を微調整できます。</p>
-      <%= render "shared/errors", obj: @destination %>
+      <p class="mt-2 mb-4">マーカーを動かすと位置を微調整できます。</p>
       <%= render "shared/destination_form", destination: @destination %>
     </div>
   </div>

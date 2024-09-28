@@ -34,13 +34,13 @@
     <div class="col-12">
       <h4>私の行きたいところリスト</h4>
       <%= link_to "目的地を登録", new_destination_path %>
-      <table class="table table-striped mt-3">
+      <table class="table table-striped text-nowrap mt-3 destinations-table">
         <% @destinations.each do |destination| %>
           <tr>
-            <th><%= link_to destination.name, destination_path(destination.id) %></th>
-            <td class="d-none d-md-block"><%= destination.note %></td>
-            <td><%= "非公開" if destination.is_private %></td>
-            <td><%= link_to "編集", edit_destination_path(destination.id) %></td>
+            <th class="destn-name-col txt-limit"><%= link_to destination.name, destination_path(destination.id) %></th>
+            <td class="d-none d-sm-block txt-limit"><%= destination.note %></td>
+            <td class="private-col"><%= "非公開" if destination.is_private %></td>
+            <td class="edit-link-col"><%= link_to "編集", edit_destination_path(destination.id) %></td>
           </tr>
         <% end %>
       </table>
