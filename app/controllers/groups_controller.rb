@@ -16,6 +16,8 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    group_users = @group.users.includes(:destinations)
+    @visible_destinations = group_users.index_with { |user| user.destinations.where.not(is_private: true) }
   end
 
   def edit

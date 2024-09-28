@@ -7,3 +7,14 @@
 <%= link_to "編集", edit_group_path(@group.id) %>
 <%= link_to "グループを削除", group_path, method: :delete, data: { confirm: "本当に削除しますか？" } %>
 <%= link_to "マイページ", user_path(current_user.id) %>
+
+<% @visible_destinations.each do |user, destinations| %>
+  <h5><%= user.name %></h5>
+  <ul>
+    <% destinations.each do |destination| %>
+      <li>
+        <%= link_to destination.name, destination_path(destination.id) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
