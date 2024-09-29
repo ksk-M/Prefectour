@@ -22,6 +22,7 @@ class DestinationsController < ApplicationController
 
   def show
     @destination = Destination.find(params[:id])
+    @destinations = current_user.destinations
   end
 
   def edit

@@ -1,38 +1,59 @@
-<div class="container my-3" style="max-width: 768px;">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-12 p-0">
-      <div id='map'></div>
-      <script>
-        let map
-        let marker
-        function initMap(){
-          geocoder = new google.maps.Geocoder()
-          map = new google.maps.Map(document.getElementById('map'), {
-            center:  {lat: <%= @destination.latitude %>, lng: <%= @destination.longitude %>},
-            zoom: 15,
-          });
-          marker = new google.maps.Marker({
-            position:  {lat: <%= @destination.latitude %>, lng: <%= @destination.longitude %>},
-            map: map
-          });
-        }
-      </script>
-      <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_PLATFORM_API_KEY'] %>&callback=initMap" async defer></script>
+    <div class="col-4 col-xl-3 d-none d-sm-block ps-0 pe-lg-5">
+      <h2>list</h2>
+      <%= link_to "一覧へ戻る", destinations_path %>
+      <ul class="list-group list-group-flush">
+        <% @destinations.each do |destination| %>
+          <li class="list-group-item list-group-item-action list-group-item-light<%= " active" if destination.id == @destination.id %> d-flex justify-content-between align-items-center pe-2">
+            <%= link_to destination.name, destination_path(destination.id), class: (destination.id == @destination.id ? "text-white" : "text-body") %>
+            <% if destination.is_private %>
+              <span class="badge bg-secondary rounded-pill">非公開</span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
     </div>
-  </div>
-  <div class="row py-4 d-flex justify-content-center shadow-sm rounded-3 form-wrapper">
-    <div class="col-11 p-0">
-      <h4><%= @destination.name %></h4>
-      <p class="text-secondary"><%= @destination.address %></p>
-      <%= @destination.note %>
-      <% if @destination.is_private %>
-        <p>非公開</p>
-      <% else %>
-        <p>公開</p>
-      <% end %>
-      <%= @destination.user.name %>
-      <%= link_to "編集", edit_destination_path(@destination.id) %>
-      <%= link_to "削除", destination_path, method: :delete, data: { confirm: "本当に削除しますか？" } %>
-    </div>
+    <div class="col-12 col-sm-8 col-xl-9 mt-sm-3">
+      <div class="row">
+        <div class="col-12 col-sm-11 p-0" style="max-width:800px;">
+          <div id='map'></div>
+          <script>
+            let map
+            let marker
+            function initMap(){
+              geocoder = new google.maps.Geocoder()
+              map = new google.maps.Map(document.getElementById('map'), {
+                center:  {lat: <%= @destination.latitude %>, lng: <%= @destination.longitude %>},
+                zoom: 15,
+              });
+              marker = new google.maps.Marker({
+                position:  {lat: <%= @destination.latitude %>, lng: <%= @destination.longitude %>},
+                map: map
+              });
+            }
+          </script>
+          <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_PLATFORM_API_KEY'] %>&callback=initMap" async defer></script>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-sm-11" style="max-width:800px;">
+          <div class="row shadow-sm rounded-3 form-wrapper">
+            <div class="col-12 p-3 p-md-4">
+              <h4><%= @destination.name %></h4>
+              <p class="text-secondary"><%= @destination.address %></p>
+              <%= @destination.note %>
+              <% if @destination.is_private %>
+                <p>非公開</p>
+              <% else %>
+                <p>公開</p>
+              <% end %>
+              <%= @destination.user.name %>
+              <%= link_to "編集", edit_destination_path(@destination.id) %>
+              <%= link_to "削除", destination_path, method: :delete, data: { confirm: "本当に削除しますか？" } %>
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
 </div>
