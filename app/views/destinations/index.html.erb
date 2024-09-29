@@ -32,14 +32,16 @@
 <div class="container-md mt-2 bg-white shadow-sm rounded-3">
   <div class="row py-2 d-flex justify-content-end">
     <div class="col-12">
-      <h4>私の行きたいところリスト</h4>
+      <h4><%= current_user.name %>さんの行きたいところリスト</h4>
       <%= link_to "目的地を登録", new_destination_path %>
       <table class="table table-striped text-nowrap mt-3 destinations-table">
         <% @destinations.each do |destination| %>
           <tr>
             <th class="destn-name-col txt-limit"><%= link_to destination.name, destination_path(destination.id) %></th>
             <td class="d-none d-sm-block txt-limit"><%= destination.note.present? ? destination.note : "-" %></td>
-            <td class="private-col"><%= "非公開" if destination.is_private %></td>
+            <td class="private-col ">
+              <span class="badge bg-secondary rounded-pill"><%= "非公開" if destination.is_private %></span>
+            </td>
             <td class="edit-link-col"><%= link_to "編集", edit_destination_path(destination.id) %></td>
           </tr>
         <% end %>
