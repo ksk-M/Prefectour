@@ -1,5 +1,6 @@
 class Destination < ApplicationRecord
   belongs_to :user
+  belongs_to :category
 
   validate :encourage_search_on_maps
   validates :name, length: { maximum: 20 }

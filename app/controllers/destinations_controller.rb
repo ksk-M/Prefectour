@@ -1,6 +1,11 @@
 class DestinationsController < ApplicationController
   def index
-    @destinations = current_user.destinations
+    if params[:category_id].present?
+      @destinations = current_user.destinations.where(category_id: params[:category_id])
+      @category = Category.find(params[:category_id])
+    else
+      @destinations = current_user.destinations
+    end
   end
 
   def new
@@ -52,6 +57,6 @@ class DestinationsController < ApplicationController
   private
 
   def destination_params
-    params.require(:destination).permit(:name, :address, :note, :is_private, :latitude, :longitude, :user_id)
+    params.require(:destination).permit(:name, :address, :note, :is_private, :latitude, :longitude, :user_id, :category_id)
   end
 end
