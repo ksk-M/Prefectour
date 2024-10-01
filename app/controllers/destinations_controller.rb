@@ -17,7 +17,7 @@ class DestinationsController < ApplicationController
   def create
     @destination = Destination.new(destination_params)
     if @destination.save
-      flash[:notice] = "「#{@destination.name} 」を登録しました。"
+      flash[:notice] = "「#{@destination.name}」を登録しました。"
       redirect_to destinations_path
     else
       flash.now[:alert] = "行きたいところの登録に失敗しました"
@@ -39,7 +39,7 @@ class DestinationsController < ApplicationController
   def update
     @destination = Destination.find(params[:id])
     if @destination.update(destination_params)
-      flash[:notice] = "「#{@destination.name} 」を更新しました。"
+      flash[:notice] = "「#{@destination.name}」を更新しました。"
       redirect_to destinations_path
     else
       flash.now[:alert] = "行きたいところの更新に失敗しました。"
