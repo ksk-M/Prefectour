@@ -12,27 +12,23 @@ RSpec.describe "Groups", type: :system do
   end
 
   describe "グループ作成" do
-    context "グループ名が入力されていない場合" do
-      it "作成に失敗すること" do
-        visit new_group_path
-        fill_in "グループ名", with: ""
-        check "another_user"
-        click_button "作成"
-        expect(page).to have_content "グループの登録に失敗しました"
-      end
+    it "グループ名が入力されていない場合、エラーになること" do
+      visit new_group_path
+      fill_in "グループ名", with: ""
+      check "another_user"
+      click_button "作成"
+      expect(page).to have_content "グループの登録に失敗しました"
     end
 
-    context "グループ名が入力されている場合" do
-      it "作成に成功すること" do
-        visit new_group_path
-        fill_in "グループ名", with: "テストグループ"
-        check "another_user"
-        click_button "作成"
-        expect(current_path).to eq user_path(user.id)
-        expect(page).to have_content "「テストグループ」を登録しました"
-        within '.my-groups' do
-          expect(page).to have_content "テストグループ"
-        end
+    it "グループ名が入力されている場合、有効" do
+      visit new_group_path
+      fill_in "グループ名", with: "テストグループ"
+      check "another_user"
+      click_button "作成"
+      expect(current_path).to eq user_path(user.id)
+      expect(page).to have_content "「テストグループ」を登録しました"
+      within '.my-groups' do
+        expect(page).to have_content "テストグループ"
       end
     end
   end

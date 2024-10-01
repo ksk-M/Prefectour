@@ -13,7 +13,16 @@ RSpec.describe "Destinations", type: :system do
   end
 
   describe "新規作成" do
-    it "必須項目が入力されている場合、登録ができること" do
+    it "入力に不備がある場合、エラーになること" do
+      visit new_destination_path
+      fill_in "destination[name]", with: ""
+      fill_in "destination[address]", with: ""
+      click_button "保存"
+
+      expect(page).to have_content "地図で場所を検索してください"
+    end
+
+    it "必須項目が入力されている場合、有効" do
       visit new_destination_path
       fill_in "destination[name]", with: "東京タワー"
       fill_in "destination[address]", with: "日本、〒105-0011 東京都港区芝公園４丁目２−８"
@@ -25,15 +34,6 @@ RSpec.describe "Destinations", type: :system do
       within '.destinations-table' do
         expect(page).to have_content("東京タワー")
       end
-    end
-
-    it "入力に不備がある場合、登録に失敗すること" do
-      visit new_destination_path
-      fill_in "destination[name]", with: ""
-      fill_in "destination[address]", with: ""
-      click_button "保存"
-
-      expect(page).to have_content "地図で場所を検索してください"
     end
   end
 
