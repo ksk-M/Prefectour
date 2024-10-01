@@ -55,6 +55,7 @@ RSpec.describe "Groups", type: :system do
     it "削除できること" do
       visit group_path(group.id)
       click_link "グループを削除"
+      page.accept_confirm
       expect(current_path).to eq user_path(user.id)
       expect(page).to have_content "「テストグループ」を削除しました"
       within '.my-groups' do
