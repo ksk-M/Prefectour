@@ -9,7 +9,7 @@ class Destination < ApplicationRecord
   def encourage_search_on_maps
     if name.blank? || address.blank? || latitude.blank? || longitude.blank?
       if @new_record
-        errors.add(:base, "地図で場所を検索してください")
+        errors.add(:base, "Googleマップで場所を検索してください。一部項目が自動入力されます。（編集可）")
       else
         errors.add(:base, "場所の名前、住所は空欄にできません")
       end

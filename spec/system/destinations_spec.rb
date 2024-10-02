@@ -19,7 +19,7 @@ RSpec.describe "Destinations", type: :system do
       fill_in "destination[address]", with: ""
       click_button "保存"
 
-      expect(page).to have_content "地図で場所を検索してください"
+      expect(page).to have_content "Googleマップで場所を検索してください。一部項目が自動入力されます。（編集可）"
     end
 
     it "必須項目が入力されている場合、有効" do
