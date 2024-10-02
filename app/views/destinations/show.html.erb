@@ -1,9 +1,12 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-4 col-xl-3 d-none d-sm-block ps-0 pe-lg-5">
-      <h2>list</h2>
-      <%= link_to "一覧へ戻る", destinations_path %>
-      <ul class="list-group list-group-flush">
+      <%= link_to destinations_path, class: "d-block m-3 text-decoration-none d-flex justify-content-between align-items-center border-bottom border-2 border-secondary text-dark link-hover" do %>
+        <i class="bi bi-arrow-left fs-5 ms-1"></i>
+        <span><span class="d-none d-md-inline-block">あなたの</span>行きたいリスト</span>
+        <span class="me-1"></span>
+      <% end %>
+      <ul class="list-group">
         <% @destinations.each do |destination| %>
           <li class="list-group-item list-group-item-action list-group-item-light<%= " active" if destination.id == @destination.id %> d-flex justify-content-between align-items-center pe-2">
             <%= link_to destination.name, destination_path(destination.id), class: (destination.id == @destination.id ? "text-white" : "text-body") %>
@@ -42,7 +45,7 @@
             <div class="col-12 p-3 p-md-4">
               <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
                 <h4 class="mb-0"><%= @destination.name %></h4>
-                <% if @destination.category.present?  %>
+                <% if @destination.category.present? %>
                   <span class="text-nowrap badge bg-light text-dark p-2 border">
                     <%= @destination.category.name %>
                   </span>
@@ -56,8 +59,10 @@
                 <p>公開</p>
               <% end %>
               <%= @destination.user.name %>
-              <%= link_to "編集", edit_destination_path(@destination.id) %>
-              <%= link_to "削除", destination_path, method: :delete, data: { confirm: "本当に削除しますか？" } %>
+              <% if @destination.user.id == current_user.id %>
+                <%= link_to "編集", edit_destination_path(@destination.id) %>
+                <%= link_to "削除", destination_path, method: :delete, data: { confirm: "本当に削除しますか？" } %>
+              <% end %>
             </div>
           </div>
         </div>
