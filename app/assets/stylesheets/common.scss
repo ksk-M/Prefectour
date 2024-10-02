@@ -72,3 +72,8 @@ body {
 .edit-link-col {
   width: 3rem;
 }
+
+.destinations-link:hover {
+  color: gray !important;
+  border-color: rgba(128, 128, 128, 0.925) !important;
+}
