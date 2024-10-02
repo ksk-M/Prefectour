@@ -22,9 +22,14 @@ ja:
         prefecture_code: 都道府県
       group:
         name: グループ名
+      destination:
+        name: 場所の名前
+        note: メモ
+        address: 住所
     models:
       user: ユーザー
       group: グループ
+      destination: 行きたいところ
   devise:
     failure:
       already_authenticated: すでにログインしています。

@@ -1,0 +1,73 @@
+<div id='map'></div>
+<script>
+  function initMap() {
+    let map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 34.7024854, lng: 135.4959506},
+      zoom: 10,
+    });
+    let transitLayer = new google.maps.TransitLayer();
+    transitLayer.setMap(map);
+
+    <% @destinations.each do |destination| %>
+      (function() {
+        let markerLatLng = { lat: <%= destination.latitude %>, lng: <%= destination.longitude %> };
+        let marker = new google.maps.Marker({
+          position: markerLatLng,
+          map: map
+        });
+        //マーカーをクリックしたとき、詳細情報を表示
+        let infowindow = new google.maps.InfoWindow({
+          position: markerLatLng,
+          content: "<a href='<%= destination_url(destination.id) %>'><%= destination.name %></a>"
+        }); //詳細ページへのリンクを表示
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+      })();
+    <% end %>
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_PLATFORM_API_KEY'] %>&callback=initMap" async defer></script>
+
+<div class="container-md mt-2 bg-white shadow-sm rounded-3">
+  <div class="row py-2 d-flex justify-content-end">
+    <div class="col-12">
+      <div class="d-md-flex justify-content-between align-items-center gap-2 mb-3">
+        <h4 class="mb-md-0"><%= current_user.name %>さんの行きたいリスト</h4>
+        <%= form_with url: destinations_path, method: :get do |f| %>
+          <div class="d-flex justify-content-end align-items-center gap-1">
+            <%= f.collection_select(:category_id, Category.all, :id, :name, { prompt: "カテゴリーを選択" }, { class: "form-select form-select-sm w-auto" }) %>
+            <%= f.submit "絞り込む", class: "btn btn-secondary btn-sm" %>
+          </div>
+        <% end %>
+      </div>
+      <div class="d-flex justify-content-between align-items-center">
+        <%= link_to new_destination_path, class: "btn btn-primary btn-sm rounded-pill" do %>
+          <i class="bi bi-plus-circle"></i>
+          <span>新規登録</span>
+        <% end %>
+        <% if params[:category_id].present? %>
+          <div class="alert alert-info px-2 py-1 m-0">
+            <i class="bi bi-funnel-fill"></i>
+            <span>選択中：<%= @category.name %></span>
+            <%= link_to destinations_path do %>
+              <i class="bi bi-x-lg alert-link"></i>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <table class="table table-striped text-nowrap mt-3 destinations-table">
+        <% @destinations.each do |destination| %>
+          <tr>
+            <th class="destn-name-col txt-limit"><%= link_to destination.name, destination_path(destination.id) %></th>
+            <td class="d-none d-sm-block txt-limit"><%= destination.note.present? ? destination.note : "-" %></td>
+            <td class="private-col ">
+              <span class="badge bg-secondary rounded-pill"><%= "非公開" if destination.is_private %></span>
+            </td>
+            <td class="edit-link-col"><%= link_to "編集", edit_destination_path(destination.id) %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
