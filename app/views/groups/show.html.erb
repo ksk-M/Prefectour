@@ -1,20 +1,51 @@
-<%= @group.name %>
-<ul>
-  <% @group.users.each do |user| %>
-    <li><%= user.name %></li>
-  <% end %>
-</ul>
+<h4><%= @group.name %></h4>
 <%= link_to "編集", edit_group_path(@group.id) %>
 <%= link_to "グループを削除", group_path, method: :delete, data: { confirm: "本当に削除しますか？" } %>
-<%= link_to "マイページ", user_path(current_user.id) %>
 
-<% @visible_destinations.each do |user, destinations| %>
-  <h5><%= user.name %></h5>
-  <ul>
-    <% destinations.each do |destination| %>
-      <li>
-        <%= link_to destination.name, destination_path(destination.id) %>
-      </li>
-    <% end %>
-  </ul>
+<table class="table table-sm">
+  <% @group.users.each do |user| %>
+    <tr>
+      <% if user.icon.attached? %>
+        <td><%= image_tag user.icon.variant(resize: '100x100'), alt: "アイコン", class: "group-icon rounded-circle" %></td>
+      <% else %>
+        <td><%= image_tag 'icon_user.png', alt: "アイコン", class: "group-icon rounded-circle" %></td>
+      <% end %>
+      <td class="text-nowrap"><%= user.name %></td>
+      <td class="text-nowrap"><%= user.prefecture.name if user.prefecture.present? %></td>
+      <td class="d-none d-sm-table-cell"><%= user.introduction.present? ? user.introduction : "-" %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= form_with url: new_plan_path, method: :get do |f| %>
+  <% @visible_destinations.each do |user, destinations| %>
+    <h6><%= user.name %></h6>
+    <ul>
+      <% destinations.each do |destination| %>
+        <li class="list-unstyled">
+          <%= check_box_tag "destination_ids[]", destination.id, false, id:"destination_#{destination.id}", class: "form-check-input" %>
+          <%= label_tag "destination_#{destination.id}", destination.name %>
+          <%= link_to "詳細", destination_path(destination.id) %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+  <%= f.hidden_field :group_id, value: @group.id %>
+  <div class="d-grid gap-2">
+    <%= f.submit '旅行プラン作成に進む', class: "btn btn-outline-danger" %>
+  </div>
 <% end %>
+
+<h5>旅行プラン</h5>
+<ul>
+  <% @plans.each do |plan| %>
+    <li>
+      <%= plan.title %>
+      <%= plan.start_date %>
+      <%= plan.end_date %>
+      <% plan.destinations.each do |destination| %>
+        <%= destination.name %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
