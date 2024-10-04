@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_09_29_042638) do
+ActiveRecord::Schema.define(version: 2024_10_02_140539) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -76,6 +76,26 @@ ActiveRecord::Schema.define(version: 2024_09_29_042638) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "plan_destinations", force: :cascade do |t|
+    t.integer "plan_id", null: false
+    t.integer "destination_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["destination_id"], name: "index_plan_destinations_on_destination_id"
+    t.index ["plan_id"], name: "index_plan_destinations_on_plan_id"
+  end
+
+  create_table "plans", force: :cascade do |t|
+    t.string "title"
+    t.text "note"
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "group_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_plans_on_group_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -98,4 +118,7 @@ ActiveRecord::Schema.define(version: 2024_09_29_042638) do
   add_foreign_key "destinations", "users"
   add_foreign_key "group_users", "groups"
   add_foreign_key "group_users", "users"
+  add_foreign_key "plan_destinations", "destinations"
+  add_foreign_key "plan_destinations", "plans"
+  add_foreign_key "plans", "groups"
 end
