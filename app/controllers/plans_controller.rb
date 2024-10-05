@@ -19,6 +19,33 @@ class PlansController < ApplicationController
     end
   end
 
+  def show
+    @plan = Plan.find(params[:id])
+    @my_plans = Plan.where(group_id: current_user.groups)
+  end
+
+  def edit
+    @plan = Plan.find(params[:id])
+  end
+
+  def update
+    @plan = Plan.find(params[:id])
+    if @plan.update(plan_params)
+      flash[:notice] = "「#{@plan.title}」を更新しました。"
+      redirect_to group_path(@plan.group.id)
+    else
+      flash.now[:alert] = "旅行計画の更新に失敗しました。"
+      render "plans/edit"
+    end
+  end
+
+  def destroy
+    @plan = Plan.find(params[:id])
+    @plan.destroy
+    flash[:notice] = "「#{@plan.title}」を削除しました。"
+    redirect_to group_path(@plan.group_id)
+  end
+
   private
 
   def plan_params

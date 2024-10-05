@@ -40,7 +40,7 @@
 <ul>
   <% @plans.each do |plan| %>
     <li>
-      <%= plan.title %>
+      <%= link_to plan.title, plan_path(plan.id) %>
       <%= plan.start_date %>
       <%= plan.end_date %>
       <% plan.destinations.each do |destination| %>
