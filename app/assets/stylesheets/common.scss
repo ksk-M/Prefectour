@@ -77,3 +77,19 @@ body {
   color: gray !important;
   border-color: rgba(128, 128, 128, 0.925) !important;
 }
+
+@media only screen and (min-width: 576px) {
+  .set-ms {
+    margin-left: calc((4 / 12) * 100%);
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .set-ms {
+    margin-left: calc((3 / 12) * 100%);
+  }
+}
+
+.set-mt {
+  margin-top: 56px;
+}
