@@ -26,10 +26,16 @@ ja:
         name: 場所の名前
         note: メモ
         address: 住所
+      plan:
+        title: タイトル
+        start_date: 開始日
+        end_date: 終了日
+        note: メモ
     models:
       user: ユーザー
       group: グループ
       destination: 行きたいところ
+      plan: 旅行プラン
   devise:
     failure:
       already_authenticated: すでにログインしています。

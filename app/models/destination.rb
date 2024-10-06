@@ -1,6 +1,8 @@
 class Destination < ApplicationRecord
   belongs_to :user
   belongs_to :category, optional: true
+  has_many :plan_destinations
+  has_many :plans, through: :plan_destinations, dependent: :destroy
 
   validate :encourage_search_on_maps
   validates :name, length: { maximum: 20 }

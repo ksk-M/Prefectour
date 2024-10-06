@@ -1,0 +1,109 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-4 col-md-3 d-none d-sm-block ps-0 pe-xl-5 fixed-top set-mt">
+      <%= link_to group_path(@plan.group_id), class: "d-block m-3 text-decoration-none d-flex justify-content-between align-items-center border-bottom border-2 border-secondary text-dark destinations-link" do %>
+        <i class="bi bi-arrow-left fs-6 fs-md-5 ms-1"></i>
+        <span>グループ画面へ</span>
+        <span class="me-1"></span>
+      <% end %>
+      <ul class="list-group list-group-flush">
+        <% @my_plans.each do |plan| %>
+          <li class="list-group-item list-group-item-action list-group-item-light<%= " active" if plan.id == @plan.id %> d-flex justify-content-between align-items-center pe-2">
+            <%= link_to plan.title, plan_path(plan.id), class: (plan.id == @plan.id ? "text-white" : "text-body") %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col-12 col-sm-8 col-md-9 set-ms">
+      <div class="row">
+        <div class="col-12 col-sm-11 p-0">
+          <div id='map'></div>
+          <style>
+            #map {
+              width: 100%;
+              height: 50vh;
+            }
+          </style>
+          <script>
+            function initMap() {
+              let map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                  lat: <%= @plan.destinations.present? ? @plan.destinations.first.latitude : 34.7024854 %>,
+                  lng: <%= @plan.destinations.present? ? @plan.destinations.first.longitude : 135.4959506 %>
+                },
+                zoom: 11,
+              });
+              let transitLayer = new google.maps.TransitLayer();
+              transitLayer.setMap(map);
+
+              <% @plan.destinations.each do |destination| %>
+                (function() {
+                  let markerLatLng = {
+                    lat: <%= destination.present? ? destination.latitude : 34.7024854 %>,
+                    lng: <%= destination.present? ? destination.longitude : 135.4959506 %>
+                  };
+                  let marker = new google.maps.Marker({
+                    position: markerLatLng,
+                    map: map
+                  });
+                  //マーカーをクリックしたとき、詳細情報を表示
+                  let infowindow = new google.maps.InfoWindow({
+                    position: markerLatLng,
+                    content: "<a href='<%= destination_url(destination.id) %>'><%= destination.name %></a>"
+                  }); //詳細ページへのリンクを表示
+                  marker.addListener('click', function() {
+                    infowindow.open(map, marker);
+                  });
+                })();
+              <% end %>
+            }
+          </script>
+          <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['MAPS_PLATFORM_API_KEY'] %>&callback=initMap" async defer></script>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-sm-11 p-3 shadow-sm rounded-3 form-wrapper">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h4 class="fw-bold mb-0"><%= @plan.title %></h4>
+            <%= link_to group_path(@plan.group.id) do %>
+              <p class="badge bg-danger rounded-pill p-2 border border-2 mb-0">
+                <%= @plan.group.name %>
+              </p>
+            <% end %>
+          </div>
+          <div class="d-flex justify-content-end">
+            <p class="mb-2 fw-bold">
+              <i class="bi bi-calendar-range me-1"></i>
+              <%= @plan.start_date %> - <%= @plan.end_date %>
+            </p>
+          </div>
+          <p><%= @plan.note %></p>
+          <table class="table table-sm">
+            <thead class="table-light">
+              <tr>
+                <th scope="col">分類</th>
+                <th scope="col">名称</th>
+                <th scope="col" class="d-none d-lg-table-cell">住所</th>
+                <th scope="col" class="text-nowrap">ユーザー名</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @plan.destinations.sort_by { |d| d.category_id }.each do |destination| %>
+                <tr>
+                  <td class="text-nowrap text-secondary"><%= destination.category.name %></td>
+                  <td><%= link_to destination.name, destination_path(destination.id) %></td>
+                  <td class="d-none d-lg-table-cell"><%= destination.address %></td>
+                  <td><%= destination.user.name %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <% if current_user.group_ids.include?(@plan.group_id) %> 
+            <%= link_to "編集", edit_plan_path(@plan.id) %>
+            <%= link_to "削除", plan_path, method: :delete, data: { confirm: "「#{@plan.title}」を本当に削除しますか？" } %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
