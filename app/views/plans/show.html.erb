@@ -21,7 +21,7 @@
           <style>
             #map {
               width: 100%;
-              height: 45vh;
+              height: 50vh;
             }
           </style>
           <script>
@@ -31,7 +31,7 @@
                   lat: <%= @plan.destinations.present? ? @plan.destinations.first.latitude : 34.7024854 %>,
                   lng: <%= @plan.destinations.present? ? @plan.destinations.first.longitude : 135.4959506 %>
                 },
-                zoom: 9,
+                zoom: 11,
               });
               let transitLayer = new google.maps.TransitLayer();
               transitLayer.setMap(map);
