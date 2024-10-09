@@ -20,6 +20,10 @@
     <% end %>
   </div>
   <div class="mb-3">
+    <%= f.label :proposed_plan %>
+    <%= f.text_area :proposed_plan, placeholder: "再度文章を生成するには、新規で旅行プランを作成して下さい", class: "form-control form-control-sm", rows: 15 %>
+  </div>
+  <div class="mb-3">
     <%= f.label :note %>
     <%= f.text_area :note, placeholder: "メモ文字以内", class: "form-control form-control-sm" %>
   </div>
