@@ -17,7 +17,14 @@ class GroupsController < ApplicationController
   def show
     @group = Group.find(params[:id])
     group_users = @group.users.includes(:destinations)
-    @visible_destinations = group_users.index_with { |user| user.destinations.where.not(is_private: true) }
+
+    if params[:prefecture].present?
+      @visible_destinations = group_users.index_with do |user|
+        user.destinations.where(is_private: false).where("address LIKE ?", "%#{params[:prefecture]}%")
+      end
+    else
+      @visible_destinations = group_users.index_with { |user| user.destinations.where(is_private: false) }
+    end
   end
 
   def edit
