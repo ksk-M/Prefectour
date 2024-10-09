@@ -27,7 +27,6 @@
     <%= f.label :note %>
     <%= f.text_area :note, placeholder: "メモ文字以内", class: "form-control form-control-sm" %>
   </div>
-  <%= f.hidden_field :group_id, value: @plan.group_id %>
   <div class="d-grid gap-2">
     <%= f.submit '更新', class: "btn btn-danger rounded-pill" %>
   </div>

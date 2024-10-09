@@ -38,7 +38,7 @@
 
 <h5>旅行プラン</h5>
 <ul>
-  <% @plans.each do |plan| %>
+  <% @group.plans.each do |plan| %>
     <li>
       <%= link_to plan.title, plan_path(plan.id) %>
       <%= plan.start_date %>

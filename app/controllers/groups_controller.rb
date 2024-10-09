@@ -18,7 +18,6 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     group_users = @group.users.includes(:destinations)
     @visible_destinations = group_users.index_with { |user| user.destinations.where.not(is_private: true) }
-    @plans = @group.plans
   end
 
   def edit
