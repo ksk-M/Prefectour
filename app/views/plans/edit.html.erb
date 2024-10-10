@@ -2,11 +2,12 @@
   <div class="row py-4 d-flex justify-content-center shadow-sm rounded-3 form-wrapper">
     <div class="col-11 col-sm-9 col-md-8 p-0">
       <h4 class="mb-4 fw-bold text-center">旅行プラン編集</h4>
+      <p class="text-center text-secondary">AIで文章を生成するには、旅行プランを改めて作成し直して下さい。</p>
       <%= render "shared/errors", obj: @plan %>
       <%= form_with model: @plan do |f| %>
         <div class="mb-4 d-flex justify-content-between align-items-center gap-3">
           <%= f.label :title, class: "text-nowrap" %>
-          <%= f.text_field :title, placeholder: "タイトル文字以内", class: "form-control form-control-sm w-100" %>
+          <%= f.text_field :title, placeholder: "25文字以内（例：AI大阪旅）", class: "form-control form-control-sm w-100" %>
         </div>
         <div class="mb-3 d-flex justify-content-between align-items-center gap-1 gap-sm-4">
           <%= f.date_field :start_date, class: "form-control form-control-sm" %>
@@ -21,11 +22,11 @@
         </div>
         <div class="mb-3">
           <%= f.label :proposed_plan %>
-          <%= f.text_area :proposed_plan, placeholder: "再度文章を生成するには、新規で旅行プランを作成して下さい", class: "form-control form-control-sm", rows: 15 %>
+          <%= f.text_area :proposed_plan, placeholder: "AIで文章を生成するには、旅行プランを改めて作成し直して下さい。", class: "form-control form-control-sm", rows: 15 %>
         </div>
         <div class="mb-4">
           <%= f.label :note %>
-          <%= f.text_area :note, placeholder: "メモ文字以内", class: "form-control form-control-sm" %>
+          <%= f.text_area :note, placeholder: "旅のメモを入力", class: "form-control form-control-sm" %>
         </div>
         <div class="d-grid gap-2">
           <%= f.submit '更新', class: "btn btn-danger rounded-pill" %>

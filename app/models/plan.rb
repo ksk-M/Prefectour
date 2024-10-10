@@ -3,7 +3,7 @@ class Plan < ApplicationRecord
   has_many :plan_destinations
   has_many :destinations, through: :plan_destinations, dependent: :destroy
 
-  validates :title, presence: true
+  validates :title, presence: true, length: { maximum: 25 }
   validate :start_date_is_before_end_date
 
   def start_date_is_before_end_date
