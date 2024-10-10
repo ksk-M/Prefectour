@@ -4,6 +4,13 @@ class Plan < ApplicationRecord
   has_many :destinations, through: :plan_destinations, dependent: :destroy
 
   validates :title, presence: true
+  validate :start_date_is_before_end_date
+
+  def start_date_is_before_end_date
+    if start_date.present? && end_date.present? && start_date >= end_date
+      errors.add(:end_date, "は開始日より後の日付にしてください。")
+    end
+  end
 
   def self.generate_travel_plan(destinations, start_date, end_date)
     client = OpenAI::Client.new
