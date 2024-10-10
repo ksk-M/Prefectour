@@ -102,7 +102,7 @@
             <h6 class="fw-bold">メモ</h6>
             <p><%= @plan.note %></p>
           <% end %>
-          <% if current_user.group_ids.include?(@plan.group_id) %> 
+          <% if current_user.group_ids.include?(@plan.group_id) %>
             <%= link_to "編集", edit_plan_path(@plan.id) %>
             <%= link_to "削除", plan_path, method: :delete, data: { confirm: "「#{@plan.title}」を本当に削除しますか？" } %>
           <% end %>
