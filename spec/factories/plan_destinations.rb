@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :plan_destination do
-    plan { nil }
-    destination { nil }
+    association :plan
+    association :destination
   end
 end

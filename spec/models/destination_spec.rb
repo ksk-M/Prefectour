@@ -61,11 +61,11 @@ RSpec.describe Destination, type: :model do
   end
 
   describe "リレーションに関するテスト" do
-    it "Userモデルと関連付いていること" do
+    it "Userモデルに属していること" do
       expect(destination.user_id).to eq user.id
     end
 
-    it "Categoryモデルと関連付いていること" do
+    it "Categoryモデルに属していること" do
       expect(destination.category_id).to eq category.id
     end
   end

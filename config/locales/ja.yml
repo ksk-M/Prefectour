@@ -30,6 +30,7 @@ ja:
         title: タイトル
         start_date: 開始日
         end_date: 終了日
+        proposed_plan: AI提案プラン
         note: メモ
     models:
       user: ユーザー

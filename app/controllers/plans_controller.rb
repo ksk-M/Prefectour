@@ -7,13 +7,22 @@ class PlansController < ApplicationController
   end
 
   def create
+    selected_destination_names = Destination.where(id: plan_params[:destination_ids].reject(&:blank?)).pluck(:name)
+
+    if selected_destination_names.blank?
+      flash[:alert] = "目的地が選択されていません。"
+      return redirect_to group_path(plan_params[:group_id])
+    end
+
     @plan = Plan.new(plan_params)
     if @plan.save
+      # バリデーションをパスした場合のみAI提案プランを生成
+      @plan.update(proposed_plan: Plan.generate_travel_plan(selected_destination_names, @plan.start_date, @plan.end_date))
       flash[:notice] = "「#{@plan.title}」を作成しました"
-      redirect_to group_path(@plan.group_id)
+      redirect_to plan_path(@plan.id)
     else
-      @group_id = @plan.group_id
-      @selected_destinations = Destination.where(id: @plan.destination_ids)
+      @group_id = plan_params[:group_id]
+      @selected_destinations = Destination.where(id: plan_params[:destination_ids])
       flash.now[:alert] = "旅行計画の作成に失敗しました"
       render "plans/new"
     end
@@ -49,6 +58,6 @@ class PlansController < ApplicationController
   private
 
   def plan_params
-    params.require(:plan).permit(:title, :note, :start_date, :end_date, :group_id, destination_ids: [])
+    params.require(:plan).permit(:title, :note, :start_date, :end_date, :proposed_plan, :group_id, destination_ids: [])
   end
 end

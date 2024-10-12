@@ -20,6 +20,7 @@ module Prefectour
     # config.eager_load_paths << Rails.root.join("extras")
     config.i18n.default_locale = :ja
     config.time_zone = 'Asia/Tokyo'
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
     config.generators do |g|
       g.test_framework :rspec,
         view_specs: false

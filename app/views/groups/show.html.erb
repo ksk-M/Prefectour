@@ -17,6 +17,26 @@
   <% end %>
 </table>
 
+<%= form_with url: group_path(@group.id), method: :get do |f| %>
+  <div class="d-flex justify-content-end align-items-center gap-1">
+    <%= f.collection_select(:prefecture, JpPrefecture::Prefecture.all, :name, :name, { prompt: "都道府県を選択" }, { class: "form-select form-select-sm w-auto" }) %>
+    <%= f.submit "絞り込む", class: "btn btn-secondary btn-sm" %>
+  </div>
+<% end %>
+
+  <div class="d-flex justify-content-between align-items-center">
+    <h5>メンバーの行きたいリスト</h5>
+    <% if params[:prefecture].present? %>
+      <div class="alert alert-info px-2 py-1 m-0">
+        <i class="bi bi-funnel-fill"></i>
+        <span>選択中：<%= params[:prefecture] %></span>
+        <%= link_to group_path(@group.id) do %>
+          <i class="bi bi-x-lg alert-link"></i>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
 <%= form_with url: new_plan_path, method: :get do |f| %>
   <% @visible_destinations.each do |user, destinations| %>
     <h6><%= user.name %></h6>
@@ -38,7 +58,7 @@
 
 <h5>旅行プラン</h5>
 <ul>
-  <% @plans.each do |plan| %>
+  <% @group.plans.each do |plan| %>
     <li>
       <%= link_to plan.title, plan_path(plan.id) %>
       <%= plan.start_date %>
