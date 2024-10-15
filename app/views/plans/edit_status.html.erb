@@ -1,0 +1,23 @@
+<div class="container my-md-3" style="max-width: 900px;">
+  <div class="row py-4 d-flex justify-content-center shadow-sm rounded-3 form-wrapper">
+    <div class="col-11 col-sm-9 col-md-8 p-0">
+      <h4 class="mb-4 fw-bold text-center"><%= @plan.title %></h4>
+      <%= render "shared/errors", obj: @plan %>
+      <%= form_with model: @plan, url: update_status_plan_path(@plan), method: :patch do |f| %>
+        <div class="form-check form-switch">
+          <%= f.check_box :status, { checked: true, class: "form-check-input" }, "実行済", "未実行" %>
+          <%= f.label :status, "「#{@plan.title}」を実行済にする", class: "form-check-label fw-bold" %>
+        </div>
+        <p>以下の目的地を訪問済にします。訪れなかった所はチェックを外して下さい。</p>
+        <%= f.collection_check_boxes :destination_ids, @destinations, :id, :name do |b| %>
+          <span class="check-boxes me-2"><%= b.label { b.check_box(checked: true) + b.text } %></span>
+        <% end %>
+        <div class="d-grid my-4">
+          <%= f.submit "更新する", class: "btn btn-info" %>
+        </div>
+      <% end %>
+
+      <%= link_to "プラン詳細に戻る", plan_path(@plan) %>
+    </div>
+  </div>
+</div>

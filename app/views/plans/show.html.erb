@@ -77,14 +77,21 @@
               <%= @plan.start_date %> - <%= @plan.end_date %>
             </p>
           </div>
-          <p><%= safe_join(@plan.proposed_plan.split("\n"),tag(:br)) if @plan.proposed_plan.present? %></p>
+          <% if @plan.status == "実行済" %>
+            <div class="alert alert-info py-0 d-flex justify-content-center align-items-center gap-1" role="alert">
+              <i class="bi bi-check2-circle fs-4"></i>
+              <%= @plan.status %>
+            </div>
+          <% end %>
+          <p><%= safe_join(@plan.proposed_plan.split("\n"),tag(:br)) %></p>
           <table class="table table-sm">
             <thead class="table-light">
               <tr>
                 <th scope="col">分類</th>
                 <th scope="col">名称</th>
                 <th scope="col" class="d-none d-lg-table-cell">住所</th>
-                <th scope="col" class="text-nowrap">ユーザー名</th>
+                <th scope="col">状況</th>
+                <th scope="col" class="text-nowrap">ユーザー</th>
               </tr>
             </thead>
             <tbody>
@@ -93,6 +100,9 @@
                   <td class="text-nowrap text-secondary"><%= destination.category.name %></td>
                   <td><%= link_to destination.name, destination_path(destination.id) %></td>
                   <td class="d-none d-lg-table-cell"><%= destination.address %></td>
+                  <td class="text-nowrap <%= "text-danger" if destination.status == "未訪問" %>">
+                    <%= destination.status %>
+                  </td>
                   <td><%= destination.user.name %></td>
                 </tr>
               <% end %>
@@ -103,7 +113,8 @@
             <p><%= @plan.note %></p>
           <% end %>
           <% if current_user.group_ids.include?(@plan.group_id) %>
-            <%= link_to "編集", edit_plan_path(@plan.id) %>
+            <%= link_to "旅行に行ってきた！", edit_status_plan_path(@plan) %>
+            <%= link_to "編集", edit_plan_path(@plan) %>
             <%= link_to "削除", plan_path, method: :delete, data: { confirm: "「#{@plan.title}」を本当に削除しますか？" } %>
           <% end %>
         </div>

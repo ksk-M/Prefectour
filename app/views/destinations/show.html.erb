@@ -42,7 +42,12 @@
       <div class="row">
         <div class="col-12 col-sm-11 p-3 p-md-4 shadow-sm rounded-3 form-wrapper" style="max-width:800px;">
           <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
-            <h4 class="mb-0"><%= @destination.name %></h4>
+            <div class="d-flex align-items-center gap-2 gap-md-3">
+              <h4 class="mb-0"><%= @destination.name %></h4>
+              <span class="mb-0 text-nowrap badge <%= @destination.status == "未訪問" ? "bg-danger" : "bg-secondary" %> px-2 py-1">
+                <%= @destination.status %>
+              </span>
+            </div>
             <% if @destination.category.present? %>
               <span class="text-nowrap badge bg-light text-dark p-2 border">
                 <%= @destination.category.name %>
