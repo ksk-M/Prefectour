@@ -8,6 +8,14 @@ class Destination < ApplicationRecord
   validates :name, length: { maximum: 20 }
   validates :address, length: { maximum: 60 }
 
+  def self.extract_prefecture_code(address)
+    @prefectures ||= JpPrefecture::Prefecture.all
+    @prefectures.each do |pref|
+      return pref.code if address.include?(pref.name)
+    end
+    nil # 都道府県名に一致しなかった場合
+  end
+
   def encourage_search_on_maps
     if name.blank? || address.blank? || latitude.blank? || longitude.blank?
       if @new_record
