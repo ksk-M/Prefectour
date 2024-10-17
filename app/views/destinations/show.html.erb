@@ -11,7 +11,7 @@
           <li class="list-group-item list-group-item-action list-group-item-light<%= " active" if destination.id == @destination.id %> d-flex justify-content-between align-items-center pe-2">
             <%= link_to destination.name, destination_path(destination.id), class: (destination.id == @destination.id ? "text-white" : "text-body") %>
             <% if destination.is_private %>
-              <span class="badge bg-secondary rounded-pill">非公開</span>
+              <span class="badge bg-dark rounded-pill">非公開</span>
             <% end %>
           </li>
         <% end %>
@@ -44,9 +44,13 @@
           <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
             <div class="d-flex align-items-center gap-2 gap-md-3">
               <h4 class="mb-0"><%= @destination.name %></h4>
-              <span class="mb-0 text-nowrap badge <%= @destination.status == "未訪問" ? "bg-danger" : "bg-secondary" %> px-2 py-1">
-                <%= @destination.status %>
-              </span>
+              <% if @destination.is_private %>
+                <span class="badge bg-dark rounded-pill">非公開</span>
+              <% else %>
+                <span class="mb-0 text-nowrap badge <%= @destination.status == "未訪問" ? "bg-danger" : "bg-secondary" %> px-2 py-1">
+                  <%= @destination.status %>
+                </span>
+              <% end %>
             </div>
             <% if @destination.category.present? %>
               <span class="text-nowrap badge bg-light text-dark p-2 border">
@@ -56,11 +60,6 @@
           </div>
           <p class="text-secondary"><%= @destination.address %></p>
           <%= @destination.note %>
-          <% if @destination.is_private %>
-            <p>非公開</p>
-          <% else %>
-            <p>公開</p>
-          <% end %>
           <%= @destination.user.name %>
           <% if @destination.user.id == current_user.id %>
             <%= link_to "編集", edit_destination_path(@destination.id) %>
