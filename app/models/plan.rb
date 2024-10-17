@@ -7,7 +7,7 @@ class Plan < ApplicationRecord
   validate :start_date_is_before_end_date
 
   def start_date_is_before_end_date
-    if start_date.present? && end_date.present? && start_date >= end_date
+    if start_date.present? && end_date.present? && start_date > end_date
       errors.add(:end_date, "は開始日より後の日付にしてください。")
     end
   end
