@@ -2,6 +2,7 @@ class Plan < ApplicationRecord
   belongs_to :group
   has_many :plan_destinations
   has_many :destinations, through: :plan_destinations, dependent: :destroy
+  has_many_attached :images
 
   validates :title, presence: true, length: { maximum: 25 }
   validate :start_date_is_before_end_date

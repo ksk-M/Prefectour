@@ -82,6 +82,6 @@ class PlansController < ApplicationController
   end
 
   def status_params
-    params.require(:plan).permit(:status)
+    params.require(:plan).permit(:status, images: [])
   end
 end
