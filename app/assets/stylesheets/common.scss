@@ -81,3 +81,9 @@ body {
 .map-container {
   background-color: #c0edffcd;
 }
+
+.plan-image {
+  width: 100%;
+  object-fit: cover;
+  border: 1px solid rgba(128, 128, 128, 0.372);
+}

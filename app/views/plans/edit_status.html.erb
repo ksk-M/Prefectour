@@ -1,19 +1,23 @@
 <div class="container my-md-3" style="max-width: 900px;">
-  <div class="row py-4 d-flex justify-content-center shadow-sm rounded-3 form-wrapper">
+  <div class="row py-5 d-flex justify-content-center shadow-sm rounded-3 form-wrapper">
     <div class="col-11 col-sm-9 col-md-8 p-0">
-      <h4 class="mb-4 fw-bold text-center"><%= @plan.title %></h4>
+      <h4 class="mb-4 fw-bold text-center">旅行が終わったら</h4>
       <%= render "shared/errors", obj: @plan %>
       <%= form_with model: @plan, url: update_status_plan_path(@plan), method: :patch do |f| %>
-        <div class="form-check form-switch">
+        <div class="form-check form-switch d-flex justify-content-center mb-4">
           <%= f.check_box :status, { checked: true, class: "form-check-input" }, "実行済", "未実行" %>
-          <%= f.label :status, "「#{@plan.title}」を実行済にする", class: "form-check-label fw-bold" %>
+          <%= f.label :status, "「#{@plan.title}」を実行済にする", class: "form-check-label fw-bold text-nowrap" %>
         </div>
-        <p>以下の目的地を訪問済にします。訪れなかった所はチェックを外して下さい。</p>
+        <p class="text-secondary mb-2">※ 訪れなかった所はチェックを外して下さい。</p>
         <%= f.collection_check_boxes :destination_ids, @destinations, :id, :name do |b| %>
           <span class="check-boxes me-2"><%= b.label { b.check_box(checked: true) + b.text } %></span>
         <% end %>
-        <div class="d-grid my-4">
-          <%= f.submit "更新する", class: "btn btn-info" %>
+        <div class="d-md-flex align-items-center mt-4 mt-md-5">
+          <p class="mb-1 mb-md-0 text-nowrap">思い出の写真を3枚まで追加できます。</p>
+          <%= f.file_field :images, multiple: true, class: "form-control form-control-sm" %>
+        </div>
+        <div class="d-grid col-12 my-4">
+          <%= f.submit "更新する", class: "btn btn-info rounded-pill" %>
         </div>
       <% end %>
 

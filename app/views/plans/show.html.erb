@@ -17,16 +17,10 @@
     <div class="col-12 col-sm-8 col-md-9">
       <div class="row">
         <div class="col-12 col-sm-11 p-0">
-          <div id='map'></div>
-          <style>
-            #map {
-              width: 100%;
-              height: 50vh;
-            }
-          </style>
+          <div id='map-show'></div>
           <script>
             function initMap() {
-              let map = new google.maps.Map(document.getElementById('map'), {
+              let map = new google.maps.Map(document.getElementById('map-show'), {
                 center: {
                   lat: <%= @plan.destinations.present? ? @plan.destinations.first.latitude : 34.7024854 %>,
                   lng: <%= @plan.destinations.present? ? @plan.destinations.first.longitude : 135.4959506 %>
@@ -83,7 +77,39 @@
               <%= @plan.status %>
             </div>
           <% end %>
-          <p><%= safe_join(@plan.proposed_plan.split("\n"),tag(:br)) %></p>
+
+          <% if @plan.images.present? %>
+            <div class="container p-0 mb-4" style="max-width: 600px;">
+              <div class="row d-flex justify-content-center">
+                <div class="col-12">
+                  <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                      <% @plan.images.each_with_index do |_, i| %>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<%= i %>" class="<%= 'active' if i.zero? %>"></button>
+                      <% end %>
+                    </div>
+                    <div class="carousel-inner">
+                      <% @plan.images.each_with_index do |image, i| %>
+                        <div class="carousel-item <%= 'active' if i.zero? %>" data-bs-interval="5000">
+                          <%= image_tag image.variant(resize: '600x600'), alt: "思い出の写真", class: "plan-image" %>
+                        </div>
+                      <% end %>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+
+          <p class="mb-4"><%= safe_join(@plan.proposed_plan.split("\n"),tag(:br)) %></p>
           <table class="table table-sm">
             <thead class="table-light">
               <tr>
@@ -113,9 +139,13 @@
             <p><%= @plan.note %></p>
           <% end %>
           <% if current_user.group_ids.include?(@plan.group_id) %>
-            <%= link_to "旅行に行ってきた！", edit_status_plan_path(@plan) %>
-            <%= link_to "編集", edit_plan_path(@plan) %>
-            <%= link_to "削除", plan_path, method: :delete, data: { confirm: "「#{@plan.title}」を本当に削除しますか？" } %>
+            <p class="text-center d-grid col-6 mx-auto">
+              <%= link_to "旅行に行ってきた！", edit_status_plan_path(@plan), class: "btn btn-outline-primary mt-4" %>
+            </p>
+            <div class="text-end">
+              <%= link_to "編集", edit_plan_path(@plan) %>
+              <%= link_to "削除", plan_path, method: :delete, data: { confirm: "「#{@plan.title}」を本当に削除しますか？" } %>
+            </div>
           <% end %>
         </div>
       </div>
