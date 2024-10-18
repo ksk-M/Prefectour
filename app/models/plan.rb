@@ -5,6 +5,7 @@ class Plan < ApplicationRecord
   has_many_attached :images
 
   validates :title, presence: true, length: { maximum: 25 }
+  validates :images, limit: { min: 0, max: 3, message: 'は3枚以下にしてください。' }, content_type: { in: ['image/png', 'image/jpeg'], message: 'の形式が対応していません。対応形式はPNGまたはJPEGです。' }
   validate :start_date_is_before_end_date
 
   def start_date_is_before_end_date
