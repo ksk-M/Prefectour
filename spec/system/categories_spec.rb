@@ -3,8 +3,9 @@ require 'rails_helper'
 RSpec.describe "Categories", type: :system do
   let(:user) { create(:user) }
   let(:category) { create(:category) }
+  let(:category_2) { create(:category, name: "グルメ") }
   let!(:destination) { create(:destination, name: "東京タワー", category: category, user: user) }
-  let!(:destination_tako) { create(:destination, name: "たこ焼き屋", user: user) }
+  let!(:destination_tako) { create(:destination, name: "たこ焼き屋", category: category_2, user: user) }
 
   before do
     visit new_user_session_path
