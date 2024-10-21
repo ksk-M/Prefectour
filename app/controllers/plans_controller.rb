@@ -19,7 +19,7 @@ class PlansController < ApplicationController
       # バリデーションをパスした場合のみAI提案プランを生成
       @plan.update(proposed_plan: Plan.generate_travel_plan(selected_destination_names, @plan.start_date, @plan.end_date))
       flash[:notice] = "「#{@plan.title}」を作成しました"
-      redirect_to plan_path(@plan.id)
+      redirect_to plan_path(@plan)
     else
       @group_id = plan_params[:group_id]
       @selected_destinations = Destination.where(id: plan_params[:destination_ids])
@@ -41,7 +41,7 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     if @plan.update(plan_params)
       flash[:notice] = "「#{@plan.title}」を更新しました。"
-      redirect_to group_path(@plan.group.id)
+      redirect_to plan_path(@plan)
     else
       flash.now[:alert] = "旅行計画の更新に失敗しました。"
       render "plans/edit"
@@ -55,9 +55,33 @@ class PlansController < ApplicationController
     redirect_to group_path(@plan.group_id)
   end
 
+  def edit_status
+    @plan = Plan.find(params[:id])
+    @destinations = @plan.destinations
+  end
+
+  def update_status
+    @plan = Plan.find(params[:id])
+    visited_destinations = plan_params[:destination_ids].reject(&:blank?)
+    if @plan.update(status_params)
+      @plan.destinations.where(id: visited_destinations).update_all(status: "訪問済")
+      @plan.destinations.where.not(id: visited_destinations).update_all(status: "未訪問")
+      flash[:notice] = "「#{@plan.title}」と選択した行きたいリストのステータスを更新しました。"
+      redirect_to group_path(@plan.group_id)
+    else
+      @destinations = @plan.destinations
+      flash.now[:alert] = "旅行計画・目的地のステータス更新に失敗しました。"
+      render "plans/edit_status"
+    end
+  end
+
   private
 
   def plan_params
-    params.require(:plan).permit(:title, :note, :start_date, :end_date, :proposed_plan, :group_id, destination_ids: [])
+    params.require(:plan).permit(:title, :note, :start_date, :end_date, :proposed_plan, :status, :group_id, destination_ids: [])
+  end
+
+  def status_params
+    params.require(:plan).permit(:status, images: [])
   end
 end

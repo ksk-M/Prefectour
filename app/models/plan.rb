@@ -2,13 +2,22 @@ class Plan < ApplicationRecord
   belongs_to :group
   has_many :plan_destinations
   has_many :destinations, through: :plan_destinations, dependent: :destroy
+  has_many_attached :images
 
   validates :title, presence: true, length: { maximum: 25 }
+  validates :images, content_type: { in: ['image/png', 'image/jpeg'], message: 'の形式が対応していません。対応形式はPNGまたはJPEGです。' }
   validate :start_date_is_before_end_date
+  validate :no_more_than_3_photos
 
   def start_date_is_before_end_date
-    if start_date.present? && end_date.present? && start_date >= end_date
+    if start_date.present? && end_date.present? && start_date > end_date
       errors.add(:end_date, "は開始日より後の日付にしてください。")
+    end
+  end
+
+  def no_more_than_3_photos
+    if images.attached? && images.count > 3
+      errors.add(:images, "は3枚以内にしてください。")
     end
   end
 

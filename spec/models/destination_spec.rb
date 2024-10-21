@@ -69,4 +69,11 @@ RSpec.describe Destination, type: :model do
       expect(destination.category_id).to eq category.id
     end
   end
+
+  describe "メソッドに関するテスト" do
+    it "住所情報から都道府県を抽出し、該当するprefecture_codeを返すこと" do
+      destination.address = "日本、〒540-0002 大阪府大阪市中央区大阪城１−１"
+      expect(Destination.extract_prefecture_code(destination.address)).to eq 27
+    end
+  end
 end

@@ -33,6 +33,7 @@ gem 'image_processing'
 gem "devise", "~> 4.9"
 gem 'jp_prefecture'
 gem 'ruby-openai'
+gem 'active_storage_validations'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

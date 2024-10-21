@@ -32,6 +32,7 @@ ja:
         end_date: 終了日
         proposed_plan: AI提案プラン
         note: メモ
+        images: 写真
     models:
       user: ユーザー
       group: グループ

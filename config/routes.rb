@@ -4,5 +4,10 @@ Rails.application.routes.draw do
   resources :users, only: :show
   resources :groups, only: [:new, :create, :show, :edit, :update, :destroy]
   resources :destinations
-  resources :plans, only: [:new, :create, :show, :edit, :update, :destroy]
+  resources :plans, only: [:new, :create, :show, :edit, :update, :destroy] do
+    member do
+      get 'edit_status'
+      patch 'update_status'
+    end
+  end
 end
