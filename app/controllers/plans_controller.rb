@@ -19,7 +19,7 @@ class PlansController < ApplicationController
       # バリデーションをパスした場合のみAI提案プランを生成
       @plan.update(proposed_plan: Plan.generate_travel_plan(selected_destination_names, @plan.start_date, @plan.end_date))
       flash[:notice] = "「#{@plan.title}」を作成しました"
-      redirect_to plan_path(@plan.id)
+      redirect_to plan_path(@plan)
     else
       @group_id = plan_params[:group_id]
       @selected_destinations = Destination.where(id: plan_params[:destination_ids])
@@ -41,7 +41,7 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     if @plan.update(plan_params)
       flash[:notice] = "「#{@plan.title}」を更新しました。"
-      redirect_to group_path(@plan.group.id)
+      redirect_to plan_path(@plan)
     else
       flash.now[:alert] = "旅行計画の更新に失敗しました。"
       render "plans/edit"
