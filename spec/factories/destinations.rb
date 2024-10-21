@@ -4,6 +4,7 @@ FactoryBot.define do
     address { "example_city" }
     latitude { 1.5 }
     longitude { 1.5 }
+    is_private { false }
     association :user
     association :category
   end
