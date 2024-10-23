@@ -91,7 +91,7 @@
 
         <script>
           $(document).ready(function () {
-            const userPrefectureCode = <%= @user_pref %>;
+            const userPrefectureCode = <%= @user_pref.present? ? @user_pref : 0 %>;
             const visitedPrefectureCodes = <%= @visited_pref_codes %>;
             const areas = Array.from({ length: 47 }, (_, i) => {
               const prefectureCode = i + 1;
