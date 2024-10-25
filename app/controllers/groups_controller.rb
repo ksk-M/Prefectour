@@ -16,6 +16,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    @plans = @group.plans.order(start_date: :desc)
     group_users = @group.users.includes(:destinations)
 
     if params[:prefecture].present?

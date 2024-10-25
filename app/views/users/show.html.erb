@@ -126,4 +126,54 @@
     </div>
   </div>
 </div>
+<div class="container-md mt-3 bg-white shadow-sm rounded-3">
+  <div class="row pt-3 pt-lg-4 pb-4 d-flex justify-content-center">
+    <div class="col-11 px-0">
+      <h4 class="mb-4 fw-bold">
+        <i class="bi bi-airplane-fill"></i>
+        旅行プラン一覧
+      </h4>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 g-4">
+        <% @plans.each do |plan| %>
+            <div class="col">
+              <div class="card h-100 shadow-sm">
+                <%= link_to plan_path(plan) do %>
+                  <% if plan.images.present? %>
+                    <%= image_tag plan.images.sample, alt: "思い出の写真", class: "border-bottom plan-card-image" %>
+                  <% else %>
+                    <%= image_tag 'sample_image.jpg', alt: "サンプル写真", class: "border-bottom plan-card-image sample-card-image" %>
+                  <% end %>
+                <% end %>
+                <div class="card-body flex-column d-flex justify-content-between">
+                  <div>
+                    <h5 class="card-title fw-bold">
+                      <%= link_to plan.title, plan_path(plan) %>
+                    </h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                      <i class="bi bi-calendar-range me-1"></i>
+                      <%= plan.start_date %> - <%= plan.end_date %>
+                    </h6>
+                    <% if plan.status == "実行済" %>
+                      <div class="alert alert-info p-0 mb-0 d-flex justify-content-center align-items-center gap-1" role="alert">
+                        <i class="bi bi-check2-circle fs-4"></i>
+                        <%= plan.status %>
+                      </div>
+                    <% end %>
+                    <p class="mt-2 mb-1"><%= plan.note %></p>
+                  </div>
+                  <div class="mt-auto">
+                    <%= link_to group_path(plan.group.id), class: "d-block text-end" do %>
+                      <span class="badge bg-light text-dark border">
+                        <%= plan.group.name %>
+                      </span>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
 <%= javascript_pack_tag 'jmap.js' %>
