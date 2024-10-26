@@ -17,8 +17,15 @@
             <span class="check-boxes me-3"><%= b.label { b.check_box + b.text } %></span>
           <% end %>
         </div>
-        <div class="mb-3 d-grid gap-2">
-          <%= f.submit "変更", class: "btn btn-danger rounded-pill" %>
+        <div class="mb-3 d-flex gap-2">
+          <%= link_to group_path, method: :delete, data: { confirm: "「#{@group.name}」を削除しますか？" },
+           class: "btn btn-sm btn-outline-secondary rounded-pill col fs-6 d-flex justify-content-center align-items-center gap-1" do %>
+            <i class="bi bi-trash"></i>グループ削除
+          <% end %>
+          <%= button_tag type: "submit",
+           class: "btn btn-sm btn-danger rounded-pill col fs-6 d-flex justify-content-center align-items-center gap-1" do %>
+            <i class="bi bi-check2-circle fs-5"></i>保存
+          <% end %>
         </div>
       <% end %>
     </div>

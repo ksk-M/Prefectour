@@ -34,8 +34,15 @@
           <%= f.label :note %>
           <%= f.text_area :note, placeholder: "旅のメモを入力", class: "form-control form-control-sm" %>
         </div>
-        <div class="d-grid gap-2">
-          <%= f.submit '更新', class: "btn btn-danger rounded-pill" %>
+        <div class="mb-3 d-flex gap-3">
+          <%= link_to plan_path, method: :delete, data: { confirm: "「#{@plan.title}」を削除しますか？" },
+           class: "btn btn-sm btn-outline-secondary rounded-pill col fs-6 d-flex justify-content-center align-items-center gap-1" do %>
+            <i class="bi bi-trash"></i>旅行プラン削除
+          <% end %>
+          <%= button_tag type: "submit",
+           class: "btn btn-sm btn-danger rounded-pill col fs-6 d-flex justify-content-center align-items-center gap-1" do %>
+            <i class="bi bi-check2-circle fs-5"></i>保存
+          <% end %>
         </div>
       <% end %>
     </div>
