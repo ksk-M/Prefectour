@@ -1,7 +1,10 @@
 <div class="container my-md-4" style="max-width: 768px;">
   <div class="row py-3 py-md-5 d-flex justify-content-center shadow-sm rounded-3 form-wrapper">
     <div class="col-11 col-sm-9 col-md-7 p-0">
-      <h4 class="mb-3 fw-bold text-center">アカウント編集</h4>
+      <h4 class="mb-3 fw-bold text-center">
+        <i class="bi bi-pencil-fill me-1"></i>
+        アカウント編集
+      </h4>
       <p class="small text-secondary mb-3 mb-sm-4">変更事項を入力の上、現在のパスワードを入力して下さい。</p>
 
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>

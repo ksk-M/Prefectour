@@ -25,8 +25,14 @@
 <div class="container my-md-3" style="max-width: 768px;">
   <div class="row py-4 d-flex justify-content-center shadow-sm rounded-3 form-wrapper">
     <div class="col-10 col-sm-7 col-md-6 p-0">
-      <h4 class="mb-4 fw-bold text-center">行きたいところを編集</h4>
-      <p class="text-center">マーカーを動かすと地点を微調整できます。</p>
+      <h4 class="mb-4 fw-bold text-center">
+        <i class="bi bi-pencil-fill me-1"></i>
+        行きたいところを編集
+      </h4>
+      <p class="d-flex justify-content-center align-items-center gap-1">
+        <i class="bi bi-geo-alt fs-5"></i>
+        マーカーを動かすと地点を微調整できます。
+      </p>
       <%= render "shared/errors", obj: @destination %>
       <%= render "shared/destination_form", destination: @destination %>
       <%= link_to "削除", destination_path, method: :delete, data: { confirm: "本当に削除しますか？" } %>

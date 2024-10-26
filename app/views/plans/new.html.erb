@@ -1,7 +1,10 @@
 <div class="container my-md-3" style="max-width: 900px;">
   <div class="row py-5 d-flex justify-content-center shadow-sm rounded-3 form-wrapper">
     <div class="col-11 col-sm-9 col-md-8 p-0">
-      <h4 class="mb-4 fw-bold text-center">旅行プランを作成する</h4>
+      <h4 class="mb-4 fw-bold text-center">
+        <i class="bi bi-chat-dots-fill fs-3 me-1"></i>
+        旅行プランを作成する
+      </h4>
       <%= render "shared/errors", obj: @plan %>
       <%= form_with model: @plan do |f| %>
         <div class="mb-4 d-flex justify-content-between align-items-center gap-3">
@@ -25,7 +28,7 @@
         </div>
         <%= f.hidden_field :group_id, value: @group_id %>
         <div class="d-grid gap-2">
-          <%= f.submit 'AI提案プランを生成（数秒要します）', class: "btn btn-danger rounded-pill" %>
+          <%= f.submit 'AI提案プランを生成（数秒要します）', class: "btn btn-dark bg-gradient rounded-pill shadow-sm" %>
         </div>
       <% end %>
     </div>

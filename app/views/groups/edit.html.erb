@@ -1,7 +1,10 @@
 <div class="container my-md-4" style="max-width: 768px;">
   <div class="row py-3 py-md-5 d-flex justify-content-center shadow-sm rounded-3 form-wrapper">
     <div class="col-10 col-sm-7 col-md-6 p-0">
-      <h4 class="mb-4 fw-bold text-center">グループを編集</h4>
+      <h4 class="mb-4 fw-bold text-center">
+        <i class="bi bi-pencil-fill"></i>
+        グループを編集
+      </h4>
       <%= render "shared/errors", obj: @group %>
       <%= form_with model: @group do |f| %>
         <div class="mb-4">
