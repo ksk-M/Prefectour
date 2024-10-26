@@ -1,60 +1,90 @@
-<h4><%= @group.name %></h4>
-<%= link_to "編集", edit_group_path(@group.id) %>
-<%= link_to "グループを削除", group_path, method: :delete, data: { confirm: "本当に削除しますか？" } %>
-
-<table class="table table-sm">
-  <% @group.users.each do |user| %>
-    <tr>
-      <% if user.icon.attached? %>
-        <td><%= image_tag user.icon.variant(resize: '100x100'), alt: "アイコン", class: "group-icon rounded-circle" %></td>
-      <% else %>
-        <td><%= image_tag 'icon_user.png', alt: "アイコン", class: "group-icon rounded-circle" %></td>
+<div class="container-md mt-3 mt-md-4">
+  <div class="row d-flex justify-content-center">
+    <div class="col-11 col-md-12 px-0">
+      <h2 class="fw-bold mb-md-0 text-center"><%= @group.name %></h2>
+      <%= link_to edit_group_path(@group), class: "d-block text-end text-decoration-none me-2" do %>
+        <i class="bi bi-pen"></i>
+        グループを編集
       <% end %>
-      <td class="text-nowrap"><%= user.name %></td>
-      <td class="text-nowrap"><%= user.prefecture.name if user.prefecture.present? %></td>
-      <td class="d-none d-sm-table-cell"><%= user.introduction.present? ? user.introduction : "-" %></td>
-    </tr>
-  <% end %>
-</table>
-
-<%= form_with url: group_path(@group.id), method: :get do |f| %>
-  <div class="d-flex justify-content-end align-items-center gap-1">
-    <%= f.collection_select(:prefecture, JpPrefecture::Prefecture.all, :name, :name, { prompt: "都道府県を選択" }, { class: "form-select form-select-sm w-auto" }) %>
-    <%= f.submit "絞り込む", class: "btn btn-secondary btn-sm" %>
+    </div>
   </div>
-<% end %>
+</div>
 
-  <div class="d-flex justify-content-between align-items-center">
-    <h5>メンバーの行きたいリスト</h5>
-    <% if params[:prefecture].present? %>
-      <div class="alert alert-info px-2 py-1 m-0">
-        <i class="bi bi-funnel-fill"></i>
-        <span>選択中：<%= params[:prefecture] %></span>
-        <%= link_to group_path(@group.id) do %>
-          <i class="bi bi-x-lg alert-link"></i>
-        <% end %>
+<div class="container-md mt-2">
+  <div class="row">
+    <div class="col-12 col-lg-5 px-0 pe-lg-3">
+      <div class="px-2 pt-3 pt-lg-4 bg-white shadow-sm rounded-3 h-100">
+        <h5 class="fw-bold d-flex justify-content-center align-items-center gap-1 mb-3">
+          <i class="bi bi-people-fill fs-4"></i>
+          メンバー
+        </h5>
+        <table class="table table-sm">
+          <% @group.users.each do |user| %>
+            <tr>
+              <% if user.icon.attached? %>
+                <td><%= image_tag user.icon.variant(resize: '100x100'), alt: "アイコン", class: "group-icon rounded-circle" %></td>
+              <% else %>
+                <td><%= image_tag 'icon_user.png', alt: "サンプルアイコン", class: "group-icon rounded-circle" %></td>
+              <% end %>
+              <td><%= user.name %></td>
+              <td class="text-nowrap text-secondary"><%= user.prefecture.present? ? user.prefecture.name : "-" %></td>
+              <td class="d-none d-sm-table-cell"><%= user.introduction.present? ? user.introduction : "-" %></td>
+            </tr>
+          <% end %>
+        </table>
       </div>
-    <% end %>
-  </div>
+    </div>
 
-<%= form_with url: new_plan_path, method: :get do |f| %>
-  <% @visible_destinations.each do |user, destinations| %>
-    <h6><%= user.name %></h6>
-    <ul>
-      <% destinations.each do |destination| %>
-        <li class="list-unstyled">
-          <%= check_box_tag "destination_ids[]", destination.id, false, id:"destination_#{destination.id}", class: "form-check-input" %>
-          <%= label_tag "destination_#{destination.id}", destination.name %>
-          <%= link_to "詳細", destination_path(destination.id) %>
-        </li>
-      <% end %>
-    </ul>
-  <% end %>
-  <%= f.hidden_field :group_id, value: @group.id %>
-  <div class="d-grid gap-2">
-    <%= f.submit '旅行プラン作成に進む', class: "btn btn-outline-danger" %>
+    <div class="col-12 col-lg-7 mt-3 mt-lg-0 px-2 px-lg-3 pt-3 pt-lg-4 pb-4 bg-white shadow-sm rounded-3">
+        <div class="d-md-flex d-lg-block d-xxl-flex justify-content-between align-items-center">
+          <h5 class="d-flex align-items-center gap-1 fw-bold mb-3 mb-md-0 mb-lg-3 mb-xxl-0">
+            <i class="bi bi-geo-alt-fill fs-4"></i>
+            目的地を選択して、旅行プランを作成しよう
+          </h5>
+          <%= form_with url: group_path(@group.id), method: :get do |f| %>
+            <div class="d-flex justify-content-end align-items-center gap-1">
+              <%= f.collection_select(:prefecture, JpPrefecture::Prefecture.all, :name, :name, { prompt: "都道府県を選択" }, { class: "form-select form-select-sm w-auto" }) %>
+              <%= f.submit "絞り込む", class: "btn btn-dark btn-sm bg-gradient" %>
+            </div>
+          <% end %>
+        </div>
+        <div class="d-flex justify-content-end">
+          <% if params[:prefecture].present? %>
+            <div class="alert alert-info px-2 py-1 mt-2 mb-0">
+              <i class="bi bi-funnel-fill"></i>
+              <span>選択中：<%= params[:prefecture] %></span>
+              <%= link_to group_path(@group.id) do %>
+                <i class="bi bi-x-lg alert-link"></i>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="mt-3">
+          <%= form_with url: new_plan_path, method: :get do |f| %>
+            <div class="select-destinations border py-2 px-sm-3 px-xl-4">
+              <% @visible_destinations.each do |user, destinations| %>
+                <p class="fw-bold mb-2"><%= user.name %></p>
+                <ul>
+                  <% destinations.each do |destination| %>
+                    <li class="list-unstyled">
+                      <%= check_box_tag "destination_ids[]", destination.id, false, id:"destination_#{destination.id}", class: "form-check-input" %>
+                      <%= label_tag "destination_#{destination.id}", destination.name %>
+                      <%= link_to "詳細", destination_path(destination.id) %>
+                    </li>
+                  <% end %>
+                </ul>
+              <% end %>
+            </div>
+            <%= f.hidden_field :group_id, value: @group.id %>
+            <div class="d-grid mt-4 mt-md-5 px-3">
+              <%= f.submit '旅行プラン作成に進む', class: "btn btn-outline-dark rounded-pill shadow-sm" %>
+            </div>
+          <% end %>
+        </div>
+    </div>
   </div>
-<% end %>
+</div>
 
 <div class="container-md mt-3 bg-white shadow-sm rounded-3">
   <div class="row pt-3 pt-lg-4 pb-4 d-flex justify-content-center">

@@ -97,3 +97,20 @@ body {
 .sample-card-image {
   filter: brightness(0.5);
 }
+
+.select-destinations {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+@media only screen and (min-width: 768px) {
+  .my-groups {
+    height: 250px;
+    overflow-y: auto;
+  }
+  
+  .latest-plan {
+    // (日本地図 - .my-groups - padding)
+    height: calc(450px - 250px - 8px);
+  }
+}
