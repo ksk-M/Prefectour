@@ -60,7 +60,7 @@
           <div class="d-flex justify-content-between align-items-center mb-2">
             <h4 class="fw-bold mb-0"><%= @plan.title %></h4>
             <%= link_to group_path(@plan.group.id) do %>
-              <span class="badge bg-danger bg-gradient rounded-pill p-2">
+              <span class="badge bg-dark bg-gradient rounded-pill p-2">
                 <%= @plan.group.name %>
               </span>
             <% end %>
@@ -140,7 +140,7 @@
           <% end %>
           <% if current_user.group_ids.include?(@plan.group_id) %>
             <p class="text-center d-grid col-8 mx-auto">
-              <%= link_to "旅行に行ってきた！", edit_status_plan_path(@plan), class: "btn btn-outline-primary mt-4" %>
+              <%= link_to "旅行に行ってきた！", edit_status_plan_path(@plan), class: "btn btn-info mt-4" %>
             </p>
             <%= link_to edit_plan_path(@plan), class: "d-block text-end text-decoration-none" do %>
               <i class="bi bi-pen"></i>

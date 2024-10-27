@@ -9,7 +9,7 @@
       <%= form_with model: @plan do |f| %>
         <div class="mb-4">
           <%= f.label :title, class: "required" %>
-          <span class="character-limit bg-dark">25文字以内</span>
+          <span class="character-limit">25文字以内</span>
           <%= f.text_field :title, placeholder: "例）AI大阪旅", class: "form-control form-control-sm" %>
         </div>
         <div class="mb-3 d-flex justify-content-between align-items-center gap-1 gap-sm-4">
