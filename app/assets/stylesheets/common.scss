@@ -54,6 +54,13 @@ body {
   text-overflow: ellipsis;
 }
 
+.limit-3rows {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
 .destinations-table {
   width: 100%;
   table-layout: fixed;
