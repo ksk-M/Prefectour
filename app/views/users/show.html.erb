@@ -76,10 +76,10 @@
                 <%= @latest_plan.start_date %>
               </p>
               <p class="mb-0 text-secondary">
-                <%= @days_left >= 0 ? "まで" : "から" %>
+                <%= @count_days >= 0 ? "まで" : "から" %>
               </p>
             </div>
-            <p class="fs-1 text-center pt-md-2 mb-0"><%= @days_left %>日</p>
+            <p class="fs-1 text-center pt-md-2 mb-0"><%= @count_days %>日</p>
           </div>
         </div>
       </div>
