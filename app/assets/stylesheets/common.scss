@@ -125,3 +125,13 @@ body {
     height: 50vh;
   }
 }
+
+.required::after {
+  content: "必須";
+  color: #ffffff;
+  background-color: #cc0000;
+  font-size: 0.9rem;
+  padding: 0.05em 0.4em;
+  border-radius: 9999px;
+  margin-left: 0.5em;
+}

@@ -10,7 +10,7 @@
         <%= render "devise/shared/error_messages", resource: resource %>
 
         <div class="mb-3">
-          <%= f.label :name %>
+          <%= f.label :name, class: "required" %>
           <%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder: "15文字以内", class: "form-control form-control-sm" %>
         </div>
 
@@ -20,17 +20,17 @@
         </div>
 
         <div class="mb-3">
-          <%= f.label :email %>
+          <%= f.label :email, class: "required" %>
           <%= f.email_field :email, autocomplete: "email", class: "form-control form-control-sm" %>
         </div>
 
         <div class="mb-3">
-          <%= f.label :password %>
+          <%= f.label :password, class: "required" %>
           <%= f.password_field :password, autocomplete: "new-password", placeholder: "#{@minimum_password_length}文字以上", class: "form-control form-control-sm" %>
         </div>
 
         <div class="mb-4">
-          <%= f.label :password_confirmation %>
+          <%= f.label :password_confirmation, class: "required" %>
           <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "#{@minimum_password_length}文字以上", class: "form-control form-control-sm" %>
         </div>
 

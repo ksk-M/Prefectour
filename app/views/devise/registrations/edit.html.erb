@@ -20,12 +20,12 @@
           <%= f.file_field :icon, class: "form-control form-control-sm" %>
         </div>
 
-        <div class="mb-3 d-flex align-items-center gap-4">
-          <%= f.label :name, class: "text-nowrap" %>
+        <div class="mb-4 d-flex align-items-center gap-3">
+          <%= f.label :name, class: "text-nowrap required" %>
           <%= f.text_field :name, autocomplete: "name", placeholder: "15文字以内", class: "form-control form-control-sm" %>
         </div>
 
-        <div class="mb-3 d-flex align-items-center gap-2">
+        <div class="mb-3 d-flex align-items-center gap-3">
           <%= f.label :prefecture_code %>
           <%= f.collection_select(:prefecture_code, JpPrefecture::Prefecture.all, :code, :name, { include_blank: "----" }, { class: "form-select form-select-sm w-auto" }) %>
         </div>
