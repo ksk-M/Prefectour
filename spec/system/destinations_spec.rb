@@ -39,7 +39,7 @@ RSpec.describe "Destinations", type: :system do
 
   describe "編集" do
     it "更新できること" do
-      visit edit_destination_path(destination.id)
+      visit edit_destination_path(destination)
       fill_in "destination[name]", with: "update"
       click_button "保存"
 
@@ -51,7 +51,7 @@ RSpec.describe "Destinations", type: :system do
     end
 
     it "削除できること" do
-      visit edit_destination_path(destination.id)
+      visit edit_destination_path(destination)
       click_link "リストから削除"
       page.accept_confirm
 

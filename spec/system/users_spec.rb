@@ -23,7 +23,7 @@ RSpec.describe "Users", type: :system do
       click_button "新規登録"
 
       user = User.last # 登録したユーザーを取得
-      expect(current_path).to eq user_path(user.id)
+      expect(current_path).to eq user_path(user)
       expect(page).to have_content "アカウント登録が完了しました。"
     end
   end
@@ -44,7 +44,7 @@ RSpec.describe "Users", type: :system do
       fill_in "メールアドレス", with: user.email
       fill_in "パスワード", with: user.password
       click_button "ログイン"
-      expect(current_path).to eq user_path(user.id)
+      expect(current_path).to eq user_path(user)
       expect(page).to have_content "ログインしました。"
     end
   end
