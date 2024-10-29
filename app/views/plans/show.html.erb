@@ -68,7 +68,7 @@
           <div class="d-flex justify-content-end">
             <p class="mb-2 fw-bold">
               <i class="bi bi-calendar-range me-1"></i>
-              <%= @plan.start_date %> - <%= @plan.end_date %>
+              <%= l @plan.start_date %> - <%= l @plan.end_date, format: :short %>
             </p>
           </div>
           <% if @plan.status == "実行済" %>
