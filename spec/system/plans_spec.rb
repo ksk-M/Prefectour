@@ -47,14 +47,14 @@ RSpec.describe "Plans", type: :system do
     it "更新できること" do
       visit edit_plan_path(plan)
       fill_in "メモ", with: "豊臣秀吉によって築城"
-      click_button "更新"
+      click_button "保存"
       expect(current_path).to eq plan_path(plan)
       expect(page).to have_content "豊臣秀吉によって築城"
     end
 
     it "削除できること" do
-      visit plan_path(plan)
-      click_link "削除"
+      visit edit_plan_path(plan)
+      click_link "旅行プラン削除"
       page.accept_confirm
       expect(current_path).to eq group_path(group)
       expect(page).to have_content "「example」を削除しました。"

@@ -40,7 +40,7 @@ RSpec.describe "Groups", type: :system do
       visit edit_group_path(group.id)
       fill_in "グループ名", with: "update"
       check "another_user"
-      click_button "変更"
+      click_button "保存"
       expect(current_path).to eq user_path(user.id)
       expect(page).to have_content "「update」を更新しました"
       within '.my-groups' do
@@ -49,8 +49,8 @@ RSpec.describe "Groups", type: :system do
     end
 
     it "削除できること" do
-      visit group_path(group.id)
-      click_link "グループを削除"
+      visit edit_group_path(group.id)
+      click_link "グループ削除"
       page.accept_confirm
       expect(current_path).to eq user_path(user.id)
       expect(page).to have_content "「テストグループ」を削除しました"

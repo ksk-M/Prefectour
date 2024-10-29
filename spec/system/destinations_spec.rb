@@ -51,8 +51,8 @@ RSpec.describe "Destinations", type: :system do
     end
 
     it "削除できること" do
-      visit destination_path(destination.id)
-      click_link "削除"
+      visit edit_destination_path(destination.id)
+      click_link "リストから削除"
       page.accept_confirm
 
       expect(current_path).to eq destinations_path
