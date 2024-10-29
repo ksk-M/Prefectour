@@ -155,3 +155,17 @@ body {
   padding: 0.05rem 0.4rem;
   margin-left: 0.3rem;
 }
+
+.back-g-image {
+  background-image: url(airplane.jpg);
+  background-size: 130px;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: 5px;
+}
+
+@media only screen and (min-width: 768px) {
+  .back-g-image {
+    background-position-y: 20px;
+  }
+}
