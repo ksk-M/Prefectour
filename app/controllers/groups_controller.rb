@@ -25,7 +25,9 @@ class GroupsController < ApplicationController
         user.destinations.where(is_private: false).where("address LIKE ?", "%#{params[:prefecture]}%").order(created_at: :desc)
       end
     else
-      @visible_destinations = group_users.index_with { |user| user.destinations.where(is_private: false).order(created_at: :desc) }
+      @visible_destinations = group_users.index_with do |user|
+        user.destinations.where(is_private: false).order(created_at: :desc)
+      end
     end
   end
 
