@@ -32,8 +32,8 @@ RSpec.describe "Plans", type: :system do
 
     it "必須項目が入力されている場合、有効" do
       fill_in 'タイトル', with: 'AI大阪旅'
-      fill_in 'plan_start_date', with: "#{ Date.today }"
-      fill_in 'plan_end_date', with: "#{ Date.tomorrow }"
+      fill_in 'plan_start_date', with: "#{Date.today}"
+      fill_in 'plan_end_date', with: "#{Date.tomorrow}"
       click_button 'AI提案プランを生成（数秒要します）'
       expect(current_path).to eq plan_path(Plan.last)
       expect(page).to have_content "AI大阪旅"
