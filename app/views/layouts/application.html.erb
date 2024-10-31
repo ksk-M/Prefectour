@@ -32,12 +32,34 @@
                   <%= image_tag 'icon_user.png', alt: "アイコン", class: "header-icon rounded-circle" %>
                 <% end %>
               </a>
-              <ul class="dropdown-menu dropdown-menu-end text-small" aria-labelledby="dropdownUser1">
-                <li><a class="dropdown-item" href="#">New project...</a></li>
-                <li><%= link_to "マイページ", user_path(current_user.id), class: "dropdown-item" %></li>
-                <li><%= link_to "アカウント編集", edit_user_registration_path, class: "dropdown-item" %></li>
+              <ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="dropdownUser1">
+                <li class="fw-bold text-center mb-1 mx-1">
+                  <%= current_user.name %><span class="fw-normal">さん</span>
+                </li>
                 <li><hr class="dropdown-divider"></li>
-                <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, data: { confirm: "ログアウトしますか？" }, class: "dropdown-item py-0" %></li>
+                <li>
+                  <%= link_to user_path(current_user), class: "dropdown-item" do %>
+                    <i class="bi bi-person-fill fs-5"></i>
+                    マイページ
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to edit_user_registration_path, class: "dropdown-item" do %>
+                    <i class="bi bi-pencil-fill"></i>
+                    アカウント編集
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to destroy_user_session_path, method: :delete, data: { confirm: "ログアウトしますか？" }, class: "dropdown-item" do %>
+                    <i class="bi bi-box-arrow-right fs-5"></i>
+                    ログアウト
+                  <% end %>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li class="text-secondary px-4 fs-small">
+                  前回ログイン
+                  <span><%= l current_user.last_sign_in_at %></span>
+                </li>
               </ul>
             </div>
           <% else %>
