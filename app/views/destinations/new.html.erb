@@ -53,13 +53,12 @@
   <div class="row py-4 d-flex justify-content-center shadow-sm rounded-3 form-wrapper">
     <div class="col-10 col-sm-7 col-md-6 p-0">
       <h4 class="mb-4 fw-bold text-center">
-        <i class="bi bi-bookmark-plus-fill"></i>
-        行きたいところを追加
+        行きたい場所を登録
       </h4>
       <%= render "shared/errors", obj: @destination %>
       <div class="d-flex">
         <input id="address" class="form-control form-control-sm me-2" type="textbox" placeholder="まずはGoogleマップで検索！" autofocus=true>
-        <input type="button" value="検 索" class="btn btn-outline-success px-3" onclick="codeAddress()">
+        <input type="button" value="検 索" class="btn btn-success px-4" onclick="codeAddress()">
       </div>
       <p class="mt-2 mb-4 d-flex justify-content-center align-items-center gap-1">
         <i class="bi bi-geo-alt-fill fs-5"></i>
