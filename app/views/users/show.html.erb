@@ -2,14 +2,17 @@
 <div class="container-md mt-2 mt-md-3">
   <div class="row">
     <div class="col-12 col-md-8 ps-md-0">
-      <div class="map-container shadow-sm rounded-3">
+      <div class="bg-white shadow-sm rounded-3">
         <div id="jmap">
           <div class="jmap-infobox">
-            <h4 class="fw-bold d-flex align-items-center gap-2">
+            <h3 class="fw-bold d-flex align-items-center gap-2">
               <i class="bi bi-browser-safari"></i>
               旅の足跡
-            </h4>
-            <p>旅行した都道府県に色がつきます。</p>
+            </h3>
+            <ul class="legend ps-3 ps-md-5 py-2 list-unstyled fw-bold">
+              <li class="residence">在住</li>
+              <li class="visited">訪問済</li>
+            </ul>
           </div>
         </div>
 
@@ -30,6 +33,7 @@
 
             $('#jmap').jmap({
               height: '450px',
+              skew: '5',
               showInfobox: true,
               backgroundPadding: '1rem',
               prefectureClass: 'prefecture',
@@ -52,18 +56,18 @@
     <div class="col-12 col-md-4 px-md-0">
       <div class="row">
         <div class="col-12 mt-2 mt-md-0">
-          <div class="my-groups py-2 px-1 bg-white shadow-sm rounded-3">
-            <h5 class="fw-bold d-flex justify-content-center align-items-center gap-1">
+          <div class="my-groups pt-3 px-2 pb-2 bg-white shadow-sm rounded-3">
+            <h4 class="fw-bold d-flex justify-content-center align-items-center gap-1">
               <i class="bi bi-people-fill fs-4"></i>
               所属グループ
-            </h5>
-            <div class="d-flex justify-content-end">
-              <%= link_to new_group_path, class: "btn btn-sm btn-outline-primary rounded-pill text-decoration-none me-2 mb-2" do %>
+            </h4>
+            <div class="d-flex justify-content-end mb-3">
+              <%= link_to new_group_path, class: "btn btn-sm btn-outline-primary rounded-pill text-decoration-none me-2" do %>
                 <i class="bi bi-plus-circle-fill"></i>
                 グループ作成
               <% end %>
             </div>
-            <table class="table table-sm table-striped mb-1">
+            <table class="table table-sm table-striped mb-0">
               <% @groups.each do |group| %>
                 <tr>
                   <th class="ps-1 ps-sm-3 ps-md-1"><%= link_to group.name, group_path(group.id) %></th>
@@ -82,10 +86,10 @@
           </div>
         </div>
       </div>
-      <div class="row mt-2">
-        <div class="col-12">
+      <div class="row">
+        <div class="col-12 mt-2">
           <% if @latest_plan.present? %>
-            <div class="latest-plan py-2 py-md-4 bg-white shadow-sm rounded-3">
+            <div class="latest-plan py-2 py-md-3 bg-white shadow-sm rounded-3">
               <p class="fs-4 mb-0 fw-bold text-center">
                 <%= link_to @latest_plan.title, plan_path(@latest_plan) %>
               </p>
@@ -98,7 +102,7 @@
                   <%= @count_days >= 0 ? "まで" : "から" %>
                 </p>
               </div>
-              <p class="fs-1 text-center pt-md-2 mb-0"><%= @count_days %>日</p>
+              <p class="fs-1 text-center mb-0"><%= @count_days %>日</p>
             </div>
           <% else %>
             <div class="latest-plan bg-white shadow-sm rounded-3 back-g-image d-flex justify-content-center align-items-center">
