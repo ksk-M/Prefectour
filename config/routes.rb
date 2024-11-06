@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/about', to: 'pages#about'
   root to: 'home#top'
   devise_for :users
   resources :users, only: :show

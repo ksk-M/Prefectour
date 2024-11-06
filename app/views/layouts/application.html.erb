@@ -21,7 +21,7 @@
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="ナビゲーションの切替">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <%= link_to root_path, class: "navbar-brand m-0 me-md-4 p-0" do %>
+          <%= link_to about_path, class: "navbar-brand m-0 me-md-4 p-0" do %>
             <%= image_tag 'logo.jpg', alt: "サイトロゴ", class: "logo" %>
           <% end %>
           <% if user_signed_in? %>
