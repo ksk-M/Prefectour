@@ -1,10 +1,12 @@
 class DestinationsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     if params[:category_id].present?
-      @destinations = current_user.destinations.where(category_id: params[:category_id])
+      @destinations = current_user.destinations.where(category_id: params[:category_id]).order(created_at: :desc)
       @category = Category.find(params[:category_id])
     else
-      @destinations = current_user.destinations
+      @destinations = current_user.destinations.order(created_at: :desc)
     end
   end
 
@@ -27,7 +29,7 @@ class DestinationsController < ApplicationController
 
   def show
     @destination = Destination.find(params[:id])
-    @destinations = current_user.destinations
+    @destinations = current_user.destinations.order(created_at: :desc)
   end
 
   def edit

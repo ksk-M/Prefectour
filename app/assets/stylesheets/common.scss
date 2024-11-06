@@ -1,3 +1,7 @@
+html {
+	scroll-behavior: smooth;
+}
+
 body {
   background-color: #F5F6F4
 }
@@ -54,6 +58,13 @@ body {
   text-overflow: ellipsis;
 }
 
+.limit-3rows {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
 .destinations-table {
   width: 100%;
   table-layout: fixed;
@@ -78,12 +89,203 @@ body {
   border-color: rgba(128, 128, 128, 0.925) !important;
 }
 
-.map-container {
-  background-color: #c0edffcd;
-}
-
 .plan-image {
   width: 100%;
   object-fit: cover;
   border: 1px solid rgba(128, 128, 128, 0.372);
+}
+
+.plan-card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.plan-card-image:hover,
+.group-link:hover {
+  opacity: 0.7;
+}
+
+.sample-card-image {
+  filter: brightness(0.5);
+}
+
+.select-destinations {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+@media only screen and (min-width: 768px) {
+  .my-groups {
+    height: 280px;
+    overflow-y: auto;
+  }
+  
+  .latest-plan {
+    // (日本地図 - .my-groups - padding)
+    height: calc(450px - 280px - 8px);
+  }
+}
+
+#map-show {
+  width: 100%;
+  height: 40vh;
+}
+
+@media only screen and (min-width: 576px) {
+  #map-show {
+    height: 50vh;
+  }
+}
+
+.required::after {
+  content: "必須";
+  color: #ffffff;
+  background-color: #cc0000;
+  font-size: 0.9rem;
+  padding: 0.05em 0.4em;
+  border-radius: 9999px;
+  margin-left: 0.5em;
+}
+
+.character-limit {
+  color: #fff;
+  background-color: rgb(118, 118, 118);
+  font-size: 0.8em;
+  padding: 0.05rem 0.4rem;
+  margin-left: 0.3rem;
+}
+
+.back-g-image {
+  background-image: url(airplane.jpg);
+  background-size: 130px;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: 5px;
+}
+
+@media only screen and (min-width: 768px) {
+  .back-g-image {
+    background-position-y: 20px;
+  }
+}
+
+.logo {
+  height: 40px;
+}
+
+.fs-small {
+  font-size: 0.8rem;
+}
+
+.legend {
+  font-size: 18px;
+}
+
+.legend li:before {
+  content: " ";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+  border-radius: 3px;
+}
+
+.residence:before {
+  background: #1565C0;
+}
+
+.visited:before {
+  background: #FF5F5E;
+}  
+
+.first-view-container {
+  background-image: url(first_view.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-x: 25%;
+  height: calc(100vh - 56px);
+  position: relative;
+}
+
+@media only screen and (max-width: 575px) {
+  .first-view-title {
+    font-size: 1.9rem;
+    letter-spacing: 0.05em;
+  }
+  .first-view-subtitle {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 991px) {
+  .first-view-title {
+    font-size: 2.5rem;
+    letter-spacing: 0.1em;
+  }
+  .first-view-subtitle {
+    font-size: 1.2rem;
+    width: 75%;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .first-view-title {
+    font-size: 3.5rem;
+    letter-spacing: 0.15em;
+  }
+  .first-view-subtitle {
+    font-size: 1.5rem;
+    width: 60%;
+  }
+}
+
+.arrow-down-icon {
+  font-size: 50px;
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.introduction-logo {
+  width: 250px;
+  display: block;
+  margin: 0 auto;
+}
+
+@media only screen and (min-width: 992px) {
+  .introduction-text {
+    font-size: 20px;
+  }
+}
+
+.highlight {
+  background: linear-gradient(transparent 60%, #ff6 60%);
+}
+
+.grid {
+  /* 方眼紙模様 */
+  background-image: linear-gradient(0deg, transparent calc(100% - 1px), #e7e5e5 calc(100% - 1px)),
+                    linear-gradient(90deg, transparent calc(100% - 1px), #e7e5e5 calc(100% - 1px));
+  background-size: 18px 18px;
+  background-repeat: repeat;
+  background-position: center center;
+}
+
+.introduction-container {
+  max-width: 1200px;
+}
+
+.detail-container h4 {
+  border-left: 5px solid #0e4b91;
+  padding: .25em .5em;
+}
+
+.ai-logo {
+  max-width: 350px;
+}
+
+.travel-logo {
+  max-width: 400px;
 }

@@ -1,0 +1,74 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 mb-5 first-view-container">
+      <div class="d-flex flex-column justify-content-center align-items-center h-100">
+        <h2 class="text-white fw-bold mb-2 first-view-title">
+          行きたいをカタチに
+        </h2>
+        <p class="text-white-50 fw-bold pt-2 mb-0 border-top border-light text-center first-view-subtitle">
+          あなたの行きたいを、AIがサポート
+        </p>
+      </div>
+      <%= link_to about_path(anchor: 'introduction') do %>
+        <i class="bi bi-arrow-down-circle-fill text-white-50 arrow-down-icon"></i>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 my-5 py-5 px-1 grid" id="introduction">
+      <%= image_tag 'logo.png', alt: "サイトロゴ", class: "introduction-logo mb-3" %>
+      <p class="text-center introduction-text">
+        "Prefecture"と"tour"を組み合わせた、<span class="highlight">47都道府県を旅して巡る夢を形にするアプリです。</span><br>
+        あなたの旅に寄り添い、思い出を紡ぐパートナー、それが「Prefectour」です。
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="container-lg detail-container">
+  <div class="row py-5">
+    <div class="col-12 col-sm-5 col-lg-6 d-flex justify-content-center align-items-center">
+      <div>
+        <h4 class="fw-bold">旅の軌跡を可視化</h4>
+        <p>
+          訪れた都道府県がわかりやすく表示され、次の旅の計画に役立ちます。<br>
+          地図を見ながら、次の旅に思いを馳せてみませんか？
+        </p>
+      </div>
+    </div>
+    <div class="col-12 col-sm-7 col-lg-6">
+      <%= image_tag 'japan-map.png', alt: "日本地図", class: "w-100" %>
+    </div>
+  </div>
+
+  <div class="row py-5">
+    <div class="col-12 col-sm-7 col-lg-6 d-flex justify-content-center align-items-center order-sm-2">
+      <div>
+        <h4 class="fw-bold">AIが旅行プランを生成</h4>
+        <p>
+          目的地を選ぶと、AIが旅行プランを自動生成。旅の計画が簡単に立てられます。<br>
+          追加のおすすめ情報が提案されることも！
+        </p>
+      </div>
+    </div>
+    <div class="col-12 col-sm-5 col-lg-6 text-center order-sm-1">
+      <%= image_tag 'ai.png', alt: "生成AI", class: "w-100 ai-logo px-4" %>
+    </div>
+  </div>
+
+  <div class="row py-5">
+    <div class="col-12 col-sm-6 d-flex justify-content-center align-items-center">
+      <div>
+        <h4 class="fw-bold">行きたい場所を管理</h4>
+        <p>
+          訪れたい場所は、気になったらすぐに登録しておきましょう！<br>
+          作成したグループ内で、訪れたい場所をスムーズに共有できます。<br>
+          Googleマップ上での一覧表示や、詳細確認も可能です。
+        </p>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 text-center">
+      <%= image_tag 'travel.png', alt: "旅行", class: "w-100 travel-logo px-4" %>
+    </div>
+  </div>
+</div>

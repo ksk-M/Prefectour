@@ -1,34 +1,40 @@
-<div class="container my-md-4" style="max-width: 768px;">
+<% provide(:title, "新規登録") %>
+<div class="container my-2 my-md-4" style="max-width: 768px;">
   <div class="row py-3 py-md-5 d-flex justify-content-center shadow-sm rounded-3 form-wrapper">
-    <div class="col-10 col-sm-7 col-md-6 p-0">
-      <h4 class="mb-4 fw-bold text-center">新規登録</h4>
+    <div class="col-11 col-sm-9 col-md-8 p-0">
+      <h4 class="mb-3 fw-bold d-flex justify-content-center align-items-center gap-2">
+        <i class="bi bi-person-plus fs-2"></i>
+        新規登録
+      </h4>
 
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
 
-        <div class="mb-3">
-          <%= f.label :name %>
-          <%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder: "15文字以内", class: "form-control form-control-sm" %>
+        <div class="mb-4">
+          <%= f.label :name, class: "required" %>
+          <span class="character-limit">15文字以内</span>
+          <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control form-control-sm" %>
         </div>
 
-        <div class="mb-3 d-flex align-items-center">
+        <div class="mb-4 d-flex align-items-center">
           <%= f.label :prefecture_code, class: "me-2" %>
           <%= f.collection_select(:prefecture_code, JpPrefecture::Prefecture.all, :code, :name, { include_blank: "----" }, { class: "form-select form-select-sm w-auto" }) %>
         </div>
 
-        <div class="mb-3">
-          <%= f.label :email %>
+        <div class="mb-4">
+          <%= f.label :email, class: "required" %>
           <%= f.email_field :email, autocomplete: "email", class: "form-control form-control-sm" %>
         </div>
 
-        <div class="mb-3">
-          <%= f.label :password %>
-          <%= f.password_field :password, autocomplete: "new-password", placeholder: "#{@minimum_password_length}文字以上", class: "form-control form-control-sm" %>
+        <div class="mb-4">
+          <%= f.label :password, class: "required" %>
+          <span class="character-limit">半角英数字・記号を含む6文字以上</span>
+          <%= f.password_field :password, autocomplete: "new-password", class: "form-control form-control-sm" %>
         </div>
 
         <div class="mb-4">
-          <%= f.label :password_confirmation %>
-          <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "#{@minimum_password_length}文字以上", class: "form-control form-control-sm" %>
+          <%= f.label :password_confirmation, class: "required" %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "確認のため再度入力してください", class: "form-control form-control-sm" %>
         </div>
 
         <div class="mb-5 d-grid gap-2">

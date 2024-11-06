@@ -1,14 +1,23 @@
-<div class="container my-md-3" style="max-width: 900px;">
+<% provide(:title, "旅行プラン編集") %>
+<div class="container my-2 my-md-4" style="max-width: 900px;">
   <div class="row py-4 d-flex justify-content-center shadow-sm rounded-3 form-wrapper">
     <div class="col-11 col-sm-9 col-md-8 p-0">
-      <h4 class="mb-4 fw-bold text-center">旅行プラン編集</h4>
-      <p class="text-center text-secondary">AIで文章を生成するには、旅行プランを改めて作成し直して下さい。</p>
+      <h4 class="mb-4 fw-bold text-center">
+        <i class="bi bi-pencil-fill me-1"></i>
+        旅行プラン編集
+      </h4>
+      <p class="text-secondary d-flex justify-content-center align-items-center gap-1 mb-4">
+        <i class="bi bi-chat-dots fs-5"></i>
+        AIで文章を生成するには、旅行プランを改めて作成し直して下さい。
+      </p>
       <%= render "shared/errors", obj: @plan %>
       <%= form_with model: @plan do |f| %>
-        <div class="mb-4 d-flex justify-content-between align-items-center gap-3">
-          <%= f.label :title, class: "text-nowrap" %>
-          <%= f.text_field :title, placeholder: "25文字以内（例：AI大阪旅）", class: "form-control form-control-sm w-100" %>
+        <div class="mb-4">
+          <%= f.label :title, class: "required" %>
+          <span class="character-limit">25文字以内</span>
+          <%= f.text_field :title, placeholder: "例）AI大阪旅", class: "form-control form-control-sm" %>
         </div>
+        <%= f.label :start_date, "期間", class: "required" %>
         <div class="mb-3 d-flex justify-content-between align-items-center gap-1 gap-sm-4">
           <%= f.date_field :start_date, class: "form-control form-control-sm" %>
           <span class="text-nowrap">から</span>
@@ -28,8 +37,15 @@
           <%= f.label :note %>
           <%= f.text_area :note, placeholder: "旅のメモを入力", class: "form-control form-control-sm" %>
         </div>
-        <div class="d-grid gap-2">
-          <%= f.submit '更新', class: "btn btn-danger rounded-pill" %>
+        <div class="mb-3 d-flex gap-3">
+          <%= link_to plan_path, method: :delete, data: { confirm: "「#{@plan.title}」を削除しますか？" },
+           class: "btn btn-sm btn-outline-secondary rounded-pill col fs-6 d-flex justify-content-center align-items-center gap-1" do %>
+            <i class="bi bi-trash"></i>旅行プラン削除
+          <% end %>
+          <%= button_tag type: "submit",
+           class: "btn btn-sm btn-danger bg-gradient rounded-pill col fs-6 d-flex justify-content-center align-items-center gap-1" do %>
+            <i class="bi bi-check2-circle fs-5"></i>保存
+          <% end %>
         </div>
       <% end %>
     </div>

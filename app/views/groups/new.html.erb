@@ -1,12 +1,17 @@
-<div class="container my-md-4" style="max-width: 768px;">
+<% provide(:title, "グループを作成") %>
+<div class="container my-2 my-md-4" style="max-width: 768px;">
   <div class="row py-3 py-md-5 d-flex justify-content-center shadow-sm rounded-3 form-wrapper">
-    <div class="col-10 col-sm-7 col-md-6 p-0">
-      <h4 class="mb-4 fw-bold text-center">グループを作成</h4>
+    <div class="col-11 col-sm-9 col-md-8 p-0">
+      <h4 class="mb-4 fw-bold text-center">
+        <i class="bi bi-people-fill"></i>
+        グループを作成
+      </h4>
       <%= render "shared/errors", obj: @group %>
       <%= form_with model: @group do |f| %>
         <div class="mb-4">
-          <%= f.label :name %>
-          <%= f.text_field :name, autofocus: true, placeholder: "15文字以内", class: "form-control form-control-sm" %>
+          <%= f.label :name, class: "required" %>
+          <span class="character-limit">15文字以内</span>
+          <%= f.text_field :name, autofocus: true, placeholder: "グループ名を入力", class: "form-control form-control-sm" %>
         </div>
         <p class="small mb-2">追加するユーザーを選択して下さい。</p>
         <div class="mb-4">

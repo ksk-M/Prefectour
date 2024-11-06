@@ -1,3 +1,4 @@
+<% provide(:title, "行きたい場所を登録") %>
 <div id='map'></div>
 <script>
   //初期マップの設定
@@ -52,14 +53,48 @@
 <div class="container my-md-3" style="max-width: 768px;">
   <div class="row py-4 d-flex justify-content-center shadow-sm rounded-3 form-wrapper">
     <div class="col-10 col-sm-7 col-md-6 p-0">
-      <h4 class="mb-4 fw-bold text-center">行きたいところを追加</h4>
+      <h4 class="mb-4 fw-bold text-center">
+        行きたい場所を登録
+      </h4>
       <%= render "shared/errors", obj: @destination %>
       <div class="d-flex">
         <input id="address" class="form-control form-control-sm me-2" type="textbox" placeholder="まずはGoogleマップで検索！" autofocus=true>
-        <input type="button" value="検 索" class="btn btn-outline-primary" onclick="codeAddress()">
+        <input type="button" value="検 索" class="btn btn-success px-4" onclick="codeAddress()">
       </div>
-      <p class="mt-2 mb-4">マーカーを動かすと地点を微調整できます。</p>
-      <%= render "shared/destination_form", destination: @destination %>
+      <p class="mt-2 mb-4 d-flex justify-content-center gap-1">
+        <i class="bi bi-geo-alt-fill"></i>
+        マーカーを動かすと地点を微調整できます。
+      </p>
+      <%= form_with model: @destination do |f| %>
+        <div class="mb-3">
+          <%= f.label :name, "名称", class: "required" %>
+          <span class="character-limit">20文字以内</span>
+          <%= f.text_field :name, id: :name, placeholder: "検索内容が転記されます（編集可）", class: "form-control form-control-sm" %>
+        </div>
+        <div class="mb-4">
+          <%= f.label :address, class: "required" %>
+          <span class="character-limit">60文字以内</span>
+          <%= f.text_field :address, id: :address_on_map, placeholder: "Googleマップから自動入力（編集可）", class: "form-control form-control-sm" %>
+        </div>
+        <div class="mb-3 d-flex align-items-center gap-3">
+          <%= f.label :category_id, "カテゴリー", class: "text-nowrap" %>
+          <%= f.collection_select(:category_id, Category.all, :id, :name, { prompt: "カテゴリーを選択" }, { class: "form-select form-select-sm" }) %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :note %>
+          <%= f.text_area :note, class: "form-control form-control-sm" %>
+        </div>
+        <div class="mb-3 form-check">
+          <%= f.check_box :is_private, {class: "form-check-input"}, "true", "false" %>
+          <%= f.label :is_private, "非公開にする場合はチェック", class: "form-check-label" %>
+        </div>
+        <%= f.hidden_field :latitude, id: :lat %>
+        <%= f.hidden_field :longitude, id: :lng %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <div class="d-grid gap-2">
+          <%= f.submit '保存', class: "btn btn-danger rounded-pill" %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

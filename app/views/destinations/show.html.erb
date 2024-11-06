@@ -1,11 +1,12 @@
+<% provide(:title, @destination.name) %>
 <div class="container-fluid">
   <div class="row">
     <div class="col-4 col-xl-3 d-none d-sm-block ps-0 pe-lg-5">
-      <%= link_to destinations_path, class: "d-block m-3 text-decoration-none d-flex justify-content-between align-items-center border-bottom border-2 border-secondary text-dark destinations-link" do %>
-        <i class="bi bi-arrow-left fs-5 ms-1"></i>
-        <span><span class="d-none d-md-inline-block">あなたの</span>行きたいリスト</span>
-        <span class="me-1"></span>
-      <% end %>
+      <h5 class="text-center mt-3 px-1">
+        <i class="bi bi-person-lines-fill fs-4"></i>
+        <%= current_user.name %>
+        <span class="fs-6 text-nowrap">さんの行きたいリスト</span>
+      </h5>
       <ul class="list-group">
         <% @destinations.each do |destination| %>
           <li class="list-group-item list-group-item-action list-group-item-light<%= " active" if destination.id == @destination.id %> d-flex justify-content-between align-items-center pe-2">
@@ -58,13 +59,27 @@
               </span>
             <% end %>
           </div>
-          <p class="text-secondary"><%= @destination.address %></p>
-          <%= @destination.note %>
-          <%= @destination.user.name %>
-          <% if @destination.user.id == current_user.id %>
-            <%= link_to "編集", edit_destination_path(@destination.id) %>
-            <%= link_to "削除", destination_path, method: :delete, data: { confirm: "本当に削除しますか？" } %>
+          <p class="text-secondary mb-0"><%= @destination.address %></p>
+          <% if @destination.note.present? %>
+            <p class="mt-3 mb-0"><%= @destination.note %></p>
           <% end %>
+          <div class="d-flex justify-content-end">
+            <% if @destination.user.id == current_user.id %>
+              <%= link_to edit_destination_path(@destination.id), class: "text-decoration-none mt-2" do %>
+                <i class="bi bi-pencil-fill"></i>
+                編集
+              <% end %>
+            <% else %>
+              <div class="d-flex align-items-center gap-1 mt-3">
+                <% if @destination.user.icon.attached? %>
+                  <%= image_tag @destination.user.icon, alt: "アイコン", class: "group-icon rounded-circle" %>
+                <% else %>
+                  <%= image_tag 'icon_user.png', alt: "サンプルアイコン", class: "group-icon rounded-circle" %>
+                <% end %>
+                <span class=""><%= @destination.user.name %></span>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>

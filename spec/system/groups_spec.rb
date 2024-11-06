@@ -25,7 +25,7 @@ RSpec.describe "Groups", type: :system do
       fill_in "グループ名", with: "テストグループ"
       check "another_user"
       click_button "作成"
-      expect(current_path).to eq user_path(user.id)
+      expect(current_path).to eq user_path(user)
       expect(page).to have_content "「テストグループ」を登録しました"
       within '.my-groups' do
         expect(page).to have_content "テストグループ"
@@ -37,11 +37,11 @@ RSpec.describe "Groups", type: :system do
     let(:group) { create(:group, name: "テストグループ") }
 
     it "更新できること" do
-      visit edit_group_path(group.id)
+      visit edit_group_path(group)
       fill_in "グループ名", with: "update"
       check "another_user"
-      click_button "変更"
-      expect(current_path).to eq user_path(user.id)
+      click_button "保存"
+      expect(current_path).to eq user_path(user)
       expect(page).to have_content "「update」を更新しました"
       within '.my-groups' do
         expect(page).to have_content "update"
@@ -49,10 +49,10 @@ RSpec.describe "Groups", type: :system do
     end
 
     it "削除できること" do
-      visit group_path(group.id)
-      click_link "グループを削除"
+      visit edit_group_path(group)
+      click_link "グループ削除"
       page.accept_confirm
-      expect(current_path).to eq user_path(user.id)
+      expect(current_path).to eq user_path(user)
       expect(page).to have_content "「テストグループ」を削除しました"
       within '.my-groups' do
         expect(page).not_to have_content "テストグループ"

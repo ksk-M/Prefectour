@@ -1,4 +1,6 @@
 class GroupsController < ApplicationController
+  before_action :authenticate_user!
+
   def new
     @group = Group.new
   end
@@ -16,14 +18,18 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    @plans = @group.plans.order(start_date: :desc)
     group_users = @group.users.includes(:destinations)
 
+    # 都道府県の絞り込み機能
     if params[:prefecture].present?
       @visible_destinations = group_users.index_with do |user|
-        user.destinations.where(is_private: false).where("address LIKE ?", "%#{params[:prefecture]}%")
+        user.destinations.where(is_private: false).where("address LIKE ?", "%#{params[:prefecture]}%").order(created_at: :desc)
       end
     else
-      @visible_destinations = group_users.index_with { |user| user.destinations.where(is_private: false) }
+      @visible_destinations = group_users.index_with do |user|
+        user.destinations.where(is_private: false).order(created_at: :desc)
+      end
     end
   end
 

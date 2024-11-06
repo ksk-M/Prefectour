@@ -1,12 +1,17 @@
-<div class="container my-md-4" style="max-width: 768px;">
+<% provide(:title, "グループを編集") %>
+<div class="container my-2 my-md-4" style="max-width: 768px;">
   <div class="row py-3 py-md-5 d-flex justify-content-center shadow-sm rounded-3 form-wrapper">
-    <div class="col-10 col-sm-7 col-md-6 p-0">
-      <h4 class="mb-4 fw-bold text-center">グループを編集</h4>
+    <div class="col-11 col-sm-9 col-md-8 p-0">
+      <h4 class="mb-4 fw-bold text-center">
+        <i class="bi bi-pencil-fill"></i>
+        グループを編集
+      </h4>
       <%= render "shared/errors", obj: @group %>
       <%= form_with model: @group do |f| %>
         <div class="mb-4">
-          <%= f.label :name %>
-          <%= f.text_field :name, placeholder: "15文字以内", class: "form-control form-control-sm" %>
+          <%= f.label :name, class: "required" %>
+          <span class="character-limit">15文字以内</span>
+          <%= f.text_field :name, placeholder: "グループ名を入力", class: "form-control form-control-sm" %>
         </div>
         <p class="small mb-2">ユーザーを選択して下さい。</p>
         <div class="mb-4">
@@ -14,8 +19,15 @@
             <span class="check-boxes me-3"><%= b.label { b.check_box + b.text } %></span>
           <% end %>
         </div>
-        <div class="mb-3 d-grid gap-2">
-          <%= f.submit "変更", class: "btn btn-danger rounded-pill" %>
+        <div class="mb-3 d-flex gap-2">
+          <%= link_to group_path, method: :delete, data: { confirm: "「#{@group.name}」を削除しますか？" },
+           class: "btn btn-sm btn-outline-secondary rounded-pill col fs-6 d-flex justify-content-center align-items-center gap-1" do %>
+            <i class="bi bi-trash"></i>グループ削除
+          <% end %>
+          <%= button_tag type: "submit",
+           class: "btn btn-sm btn-danger rounded-pill col fs-6 d-flex justify-content-center align-items-center gap-1" do %>
+            <i class="bi bi-check2-circle fs-5"></i>保存
+          <% end %>
         </div>
       <% end %>
     </div>

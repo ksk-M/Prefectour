@@ -25,6 +25,32 @@ RSpec.describe Plan, type: :model do
       end
     end
 
+    context "旅行の期間" do
+      it "開始日が入力されていない場合、エラーになること" do
+        plan.start_date = nil
+        expect(plan).to be_invalid
+        expect(plan.errors.full_messages).to include("開始日を入力してください")
+      end
+
+      it "終了日が入力されていない場合、エラーになること" do
+        plan.end_date = nil
+        expect(plan).to be_invalid
+        expect(plan.errors.full_messages).to include("終了日を入力してください")
+      end
+
+      it "開始日と終了日が共に入力されていない場合、エラーになること" do
+        plan.start_date = nil
+        plan.end_date = nil
+        expect(plan).to be_invalid
+        expect(plan.errors.full_messages).to include("開始日を入力してください")
+        expect(plan.errors.full_messages).to include("終了日を入力してください")
+      end
+
+      it "開始日と終了日が共に入力されている場合、有効" do
+        expect(plan).to be_valid
+      end
+    end
+
     context "日付の検証" do
       it "開始日が終了日より後の場合、エラーになること" do
         plan.start_date = Date.tomorrow
@@ -46,17 +72,23 @@ RSpec.describe Plan, type: :model do
       end
     end
 
-    context "写真の枚数と形式の検証" do
-      it { is_expected.to validate_content_type_of(:images).allowing('image/png', 'image/jpeg').rejecting('text/plain', 'text/xml') }
+    context "写真の形式と枚数の検証" do
+      it "PNGおよびJPEG形式のみを許可すること" do
+        is_expected.to validate_content_type_of(:images).allowing('image/png', 'image/jpeg').rejecting('text/plain', 'text/xml')
+      end
 
       it "写真の枚数が4枚以上の場合、エラーになること" do
-        4.times { plan.images.attach(io: File.open("#{Rails.root}/spec/fixtures/images/test_image.jpg"), filename: "test_image.jpg") }
+        4.times do
+          plan.images.attach(io: File.open("#{Rails.root}/spec/fixtures/images/test_image.jpg"), filename: "test_image.jpg")
+        end
         expect(plan).to be_invalid
         expect(plan.errors[:images]).to include('は3枚以内にしてください。')
       end
 
       it "写真の枚数が3枚以内の場合、有効" do
-        3.times { plan.images.attach(io: File.open("#{Rails.root}/spec/fixtures/images/test_image.jpg"), filename: "test_image.jpg") }
+        3.times do
+          plan.images.attach(io: File.open("#{Rails.root}/spec/fixtures/images/test_image.jpg"), filename: "test_image.jpg")
+        end
         expect(plan).to be_valid
       end
     end
