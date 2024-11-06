@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
+
   def show
     @groups = current_user.groups
     @user_pref = current_user.prefecture_code

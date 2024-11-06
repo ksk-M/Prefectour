@@ -1,4 +1,6 @@
 class DestinationsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     if params[:category_id].present?
       @destinations = current_user.destinations.where(category_id: params[:category_id]).order(created_at: :desc)

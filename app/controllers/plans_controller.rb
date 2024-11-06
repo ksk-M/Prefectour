@@ -1,4 +1,6 @@
 class PlansController < ApplicationController
+  before_action :authenticate_user!
+
   def new
     @plan = Plan.new
     @group_id = params[:group_id]
