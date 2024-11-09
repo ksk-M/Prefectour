@@ -73,22 +73,24 @@
   </div>
 </div>
 
-<div class="container-fluid promotion-container mt-5">
-  <div class="row d-flex justify-content-center">
-    <div class="col-11 my-5 px-3 px-sm-5 py-4 promotion-links">
-      <h4 class="fw-bold text-white mb-3">Prefectourを使ってみよう</h4>
-      <%= link_to new_user_registration_path, class: "btn btn-sm btn-danger d-flex justify-content-center align-items-center gap-1 mb-2" do %>
-        <i class="bi bi-pen"></i>
-        新規登録
-      <% end %>
-      <%= link_to new_user_session_path, class: "btn btn-sm btn-light d-flex justify-content-center align-items-center gap-1 mb-3 py-0" do %>
-        <i class="bi bi-box-arrow-in-right fs-5"></i>
-        ログイン
-      <% end %>
-      <%= link_to users_guest_sign_in_path, method: :post, class: "d-flex justify-content-center align-items-center text-white guest-login-link" do %>
-        <i class="bi bi-person-fill fs-5"></i>
-        ゲストログイン
-      <% end %>
+<% unless user_signed_in? %>
+  <div class="container-fluid promotion-container mt-5">
+    <div class="row d-flex justify-content-center">
+      <div class="col-11 my-5 px-3 px-sm-5 py-4 promotion-links">
+        <h4 class="fw-bold text-white mb-3">Prefectourを使ってみよう</h4>
+        <%= link_to new_user_registration_path, class: "btn btn-sm btn-danger d-flex justify-content-center align-items-center gap-1 mb-2" do %>
+          <i class="bi bi-pen"></i>
+          新規登録
+        <% end %>
+        <%= link_to new_user_session_path, class: "btn btn-sm btn-light d-flex justify-content-center align-items-center gap-1 mb-3 py-0" do %>
+          <i class="bi bi-box-arrow-in-right fs-5"></i>
+          ログイン
+        <% end %>
+        <%= link_to users_guest_sign_in_path, method: :post, class: "d-flex justify-content-center align-items-center text-white guest-login-link" do %>
+          <i class="bi bi-person-fill fs-5"></i>
+          ゲストログイン
+        <% end %>
+      </div>
     </div>
   </div>
-</div>
+<% end %>
