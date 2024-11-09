@@ -295,3 +295,24 @@ body {
   width: 70px;
   height: 40px;
 }
+
+.promotion-container {
+  background-image: url(first_view.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-x: 25%;
+  background-position-y: 55%;
+}
+
+.promotion-links {
+  background-color: rgba(169, 166, 166, 0.49);
+  max-width: 500px;
+}
+
+.guest-login-link {
+  text-decoration: none;
+}
+
+.guest-login-link:hover {
+  text-decoration: underline;
+}
