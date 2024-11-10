@@ -12,4 +12,12 @@ class User < ApplicationRecord
 
   include JpPrefecture
   jp_prefecture :prefecture_code
+
+  def self.guest
+    find_or_create_by(email: 'guest@example.com') do |user|
+      user.name = "ゲスト"
+      user.prefecture_code = 27
+      user.password = SecureRandom.urlsafe_base64
+    end
+  end
 end

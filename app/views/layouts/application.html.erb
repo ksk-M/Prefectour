@@ -64,8 +64,9 @@
               </ul>
             </div>
           <% else %>
-            <i class="bi bi-question-circle px-3 d-md-none" style="font-size: 26px;"></i>
+            <%= link_to "ゲスト\nログイン", users_guest_sign_in_path, method: :post, class: "btn btn-sm btn-outline-secondary guest-btn lh-sm d-md-none" %>
           <% end %>
+
           <div class="collapse navbar-collapse" id="navbar">
             <ul class="navbar-nav me-auto mb-2 mb-md-0 text-center">
               <% if user_signed_in? %>
@@ -96,9 +97,13 @@
                 </li>
               <% end %>
             </ul>
-            <%= link_to new_destination_path, class: "btn btn-sm btn-outline-success d-none d-md-block" do %>
-              <i class="bi bi-geo-alt-fill"></i>
-              行きたい場所を登録
+            <% if user_signed_in? %>
+              <%= link_to new_destination_path, class: "btn btn-sm btn-outline-success d-none d-md-block" do %>
+                <i class="bi bi-geo-alt-fill"></i>
+                行きたい場所を登録
+              <% end %>
+            <% else %>
+              <%= link_to "ゲストログイン", users_guest_sign_in_path, method: :post, class: "btn btn-sm btn-outline-secondary d-none d-md-block" %>
             <% end %>
           </div>
         </div>

@@ -6,18 +6,10 @@ body {
   background-color: #F5F6F4
 }
 
-.form-wrapper {
-  background-color: #fff;
-}
-
 .delete-account {
   margin-top: 90px;
   border: 1px solid;
   border-radius: 10px;
-}
-
-.delete-account-button {
-  text-align: right;
 }
 
 .check-boxes input[type=checkbox] {
@@ -139,13 +131,11 @@ body {
 }
 
 .required::after {
-  content: "必須";
-  color: #ffffff;
-  background-color: #cc0000;
-  font-size: 0.9rem;
-  padding: 0.05em 0.4em;
-  border-radius: 9999px;
-  margin-left: 0.5em;
+  content: "*";
+  color: #cc0000;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-left: 0.1em;
 }
 
 .character-limit {
@@ -288,4 +278,31 @@ body {
 
 .travel-logo {
   max-width: 400px;
+}
+
+.guest-btn {
+  font-size: 0.8rem;
+  width: 70px;
+  height: 40px;
+}
+
+.promotion-container {
+  background-image: url(first_view.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-x: 25%;
+  background-position-y: 55%;
+}
+
+.promotion-links {
+  background-color: rgba(169, 166, 166, 0.49);
+  max-width: 500px;
+}
+
+.guest-login-link {
+  text-decoration: none;
+}
+
+.guest-login-link:hover {
+  text-decoration: underline;
 }
