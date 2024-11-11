@@ -34,6 +34,7 @@ gem "devise", "~> 4.9"
 gem 'jp_prefecture'
 gem 'ruby-openai'
 gem 'active_storage_validations'
+gem 'psych', '~> 3.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
