@@ -84,25 +84,24 @@
       </div>
       <div class="row">
         <div class="col-12 mt-2">
-          <% if @latest_plan.present? %>
+          <% if @most_recent_plan.present? %>
             <div class="latest-plan py-2 py-md-3 bg-white shadow-sm rounded-3">
               <p class="fs-4 mb-0 fw-bold text-center">
-                <%= link_to @latest_plan.title, plan_path(@latest_plan) %>
+                <%= link_to @most_recent_plan.title, plan_path(@most_recent_plan) %>
               </p>
               <div class="d-flex justify-content-center align-items-center gap-2 mb-2">
                 <p class="mb-0">
                   <i class="bi bi-calendar-check me-1"></i>
-                  <%= l @latest_plan.start_date %>
-                </p>
-                <p class="mb-0 text-secondary">
-                  <%= @count_days >= 0 ? "まで" : "から" %>
+                  <%= l @most_recent_plan.start_date %> まで
                 </p>
               </div>
-              <p class="fs-1 text-center mb-0"><%= @count_days %>日</p>
+              <p class="fs-1 text-center mb-0">
+                <%= (@most_recent_plan.start_date - Date.current).to_i %>日
+              </p>
             </div>
           <% else %>
             <div class="latest-plan bg-white shadow-sm rounded-3 back-g-image d-flex justify-content-center align-items-center">
-              <h6 class="fw-bold text-center my-5">グループを作成して、旅行プランを作ろう</h6>
+              <h6 class="fw-bold text-center my-5">グループページから旅行プランを作ろう</h6>
             </div>
           <% end %>
         </div>
