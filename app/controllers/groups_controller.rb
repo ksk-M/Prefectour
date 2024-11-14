@@ -18,7 +18,8 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
-    @plans = @group.plans.order(start_date: :desc)
+    @member = @group.users.includes(:icon_attachment)
+    @plans = @group.plans.includes(images_attachments: :blob).order(start_date: :desc)
     group_users = @group.users.includes(:destinations)
 
     # 都道府県の絞り込み機能

@@ -122,7 +122,7 @@
               </tr>
             </thead>
             <tbody>
-              <% @plan.destinations.sort_by { |d| d.category_id }.each do |destination| %>
+              <% @plan_destinations.each do |destination| %>
                 <tr>
                   <td class="text-nowrap text-secondary"><%= destination.category.name %></td>
                   <td><%= link_to destination.name, destination_path(destination.id) %></td>

@@ -31,8 +31,9 @@ class PlansController < ApplicationController
   end
 
   def show
-    @plan = Plan.find(params[:id])
+    @plan = Plan.includes(images_attachments: :blob).find(params[:id])
     @my_plans = Plan.where(group_id: current_user.groups)
+    @plan_destinations = @plan.destinations.includes(:category, :user).order('categories.name')
   end
 
   def edit

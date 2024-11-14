@@ -20,16 +20,16 @@
           メンバー
         </h5>
         <table class="table table-sm">
-          <% @group.users.each do |user| %>
+          <% @member.each do |member| %>
             <tr>
-              <% if user.icon.attached? %>
-                <td><%= image_tag user.icon.variant(resize: '100x100'), alt: "アイコン", class: "group-icon rounded-circle" %></td>
+              <% if member.icon.attached? %>
+                <td><%= image_tag member.icon.variant(resize: '100x100'), alt: "アイコン", class: "group-icon rounded-circle" %></td>
               <% else %>
                 <td><%= image_tag 'icon_user.png', alt: "サンプルアイコン", class: "group-icon rounded-circle" %></td>
               <% end %>
-              <td><%= user.name %></td>
-              <td class="text-nowrap text-secondary"><%= user.prefecture.present? ? user.prefecture.name : "-" %></td>
-              <td class="d-none d-sm-table-cell"><%= user.introduction.present? ? user.introduction : "-" %></td>
+              <td><%= member.name %></td>
+              <td class="text-nowrap text-secondary"><%= member.prefecture.present? ? member.prefecture.name : "-" %></td>
+              <td class="d-none d-sm-table-cell"><%= member.introduction.present? ? member.introduction : "-" %></td>
             </tr>
           <% end %>
         </table>
