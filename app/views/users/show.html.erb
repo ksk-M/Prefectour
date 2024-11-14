@@ -68,7 +68,7 @@
                 <tr>
                   <th class="ps-1 ps-sm-3 ps-md-1"><%= link_to group.name, group_path(group.id) %></th>
                   <td class="ps-3 text-nowrap">
-                    <% group.users.sort.reject{ |user| user == current_user }.each do |user| %>
+                    <% group.users.sort.each do |user| %>
                       <% if user.icon.attached? %>
                         <%= image_tag user.icon.variant(resize: '100x100'), alt: "アイコン", class: "group-icon rounded-circle" %>
                       <% else %>
