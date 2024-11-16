@@ -56,7 +56,7 @@ RSpec.describe "Destinations", type: :system do
       page.accept_confirm
 
       expect(current_path).to eq destinations_path
-      expect(page).to have_content "行きたいところリストから「example」を削除しました。"
+      expect(page).to have_content "行きたいリストから「example」を削除しました。"
       within '.destinations-table' do
         expect(page).not_to have_content("example")
       end
