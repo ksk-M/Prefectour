@@ -66,7 +66,7 @@
               </span>
             <% end %>
           </div>
-          <div class="d-flex justify-content-end">
+          <div class="d-flex justify-content-end mb-2">
             <p class="mb-2 fw-bold">
               <i class="bi bi-calendar-range me-1"></i>
               <%= l @plan.start_date %> - <%= l @plan.end_date, format: :short %>
@@ -110,7 +110,9 @@
             </div>
           <% end %>
 
-          <p class="mb-4"><%= safe_join(@plan.proposed_plan.split("\n"),tag(:br)) %></p>
+          <p class="mb-5 p-1 p-md-2 border rounded-3">
+            <%= safe_join(@plan.proposed_plan.split("\n"),tag(:br)) %>
+          </p>
           <table class="table table-sm">
             <thead class="table-light">
               <tr>
@@ -122,7 +124,7 @@
               </tr>
             </thead>
             <tbody>
-              <% @plan.destinations.sort_by { |d| d.category_id }.each do |destination| %>
+              <% @plan_destinations.each do |destination| %>
                 <tr>
                   <td class="text-nowrap text-secondary"><%= destination.category.name %></td>
                   <td><%= link_to destination.name, destination_path(destination.id) %></td>

@@ -9,7 +9,7 @@ class GroupsController < ApplicationController
     @group = Group.new(group_params_with_current_user)
     if @group.save
       flash[:notice] = "「#{@group.name}」を登録しました"
-      redirect_to user_path(current_user.id)
+      redirect_to group_path(@group)
     else
       flash.now[:alert] = "グループの登録に失敗しました"
       render "groups/new"
@@ -18,7 +18,8 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
-    @plans = @group.plans.order(start_date: :desc)
+    @member = @group.users.includes(:icon_attachment)
+    @plans = @group.plans.includes(images_attachments: :blob).order(start_date: :desc)
     group_users = @group.users.includes(:destinations)
 
     # 都道府県の絞り込み機能
@@ -41,7 +42,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     if @group.update(group_params_with_current_user)
       flash[:notice] = "「#{@group.name}」を更新しました"
-      redirect_to user_path(current_user.id)
+      redirect_to group_path(@group)
     else
       flash.now[:alert] = "グループの更新に失敗しました"
       render "groups/edit"

@@ -52,7 +52,7 @@ class DestinationsController < ApplicationController
   def destroy
     @destination = Destination.find(params[:id])
     @destination.destroy
-    flash[:notice] = "行きたいところリストから「#{@destination.name}」を削除しました。"
+    flash[:notice] = "行きたいリストから「#{@destination.name}」を削除しました。"
     redirect_to destinations_path
   end
 

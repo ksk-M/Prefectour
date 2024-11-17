@@ -25,14 +25,15 @@ class PlansController < ApplicationController
     else
       @group_id = plan_params[:group_id]
       @selected_destinations = Destination.where(id: plan_params[:destination_ids])
-      flash.now[:alert] = "旅行計画の作成に失敗しました"
+      flash.now[:alert] = "旅行プランの作成に失敗しました"
       render "plans/new"
     end
   end
 
   def show
-    @plan = Plan.find(params[:id])
+    @plan = Plan.includes(images_attachments: :blob).find(params[:id])
     @my_plans = Plan.where(group_id: current_user.groups)
+    @plan_destinations = @plan.destinations.includes(:category, :user).order('categories.name')
   end
 
   def edit
@@ -45,7 +46,7 @@ class PlansController < ApplicationController
       flash[:notice] = "「#{@plan.title}」を更新しました。"
       redirect_to plan_path(@plan)
     else
-      flash.now[:alert] = "旅行計画の更新に失敗しました。"
+      flash.now[:alert] = "旅行プランの更新に失敗しました。"
       render "plans/edit"
     end
   end
@@ -72,7 +73,7 @@ class PlansController < ApplicationController
       redirect_to group_path(@plan.group_id)
     else
       @destinations = @plan.destinations
-      flash.now[:alert] = "旅行計画・目的地のステータス更新に失敗しました。"
+      flash.now[:alert] = "旅行プラン・目的地のステータス更新に失敗しました。"
       render "plans/edit_status"
     end
   end

@@ -25,9 +25,9 @@ RSpec.describe "Groups", type: :system do
       fill_in "グループ名", with: "テストグループ"
       check "another_user"
       click_button "作成"
-      expect(current_path).to eq user_path(user)
+      expect(current_path).to eq group_path(Group.last)
       expect(page).to have_content "「テストグループ」を登録しました"
-      within '.my-groups' do
+      within '.group-name' do
         expect(page).to have_content "テストグループ"
       end
     end
@@ -41,9 +41,9 @@ RSpec.describe "Groups", type: :system do
       fill_in "グループ名", with: "update"
       check "another_user"
       click_button "保存"
-      expect(current_path).to eq user_path(user)
+      expect(current_path).to eq group_path(group)
       expect(page).to have_content "「update」を更新しました"
-      within '.my-groups' do
+      within '.group-name' do
         expect(page).to have_content "update"
       end
     end

@@ -13,9 +13,16 @@ body {
 }
 
 .check-boxes input[type=checkbox] {
-  transform: scale(1.5);
-  margin-right: 5px;
+  margin-right: 3px;
 }
+
+@media only screen and (min-width: 992px) {
+  .check-boxes input[type=checkbox] {
+    transform: scale(1.5);
+    margin-right: 5px;
+  }
+}
+
 
 .icon {
   width: 48px;
@@ -233,7 +240,7 @@ body {
 .arrow-down-icon {
   font-size: 50px;
   position: absolute;
-  bottom: 30px;
+  bottom: 8%;
   left: 50%;
   transform: translateX(-50%);
 }
