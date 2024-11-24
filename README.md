@@ -77,7 +77,7 @@ Google maps APIを活用し、訪れたい場所や写真スポットを簡単�
 <br>
 
 ## ER図
-![ER図](./erd.png)
+![ER図](./docs/erd.png)
 <br>
 <br>
 
