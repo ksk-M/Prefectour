@@ -1,6 +1,6 @@
 # Prefectour
 <div align="center">
-  <img src="./app/assets/images/logo.png" width="70%">
+  <img src="./app/assets/images/logo.png" width="500">
 </div>
 <br>
 
@@ -16,7 +16,7 @@
 https://prefectour-3c006b5b690f.herokuapp.com/about
 
 スマートフォン・タブレットにも対応しています。  
-<img src="./docs/qr.png" width="15%">
+<img src="./docs/qr.png" width="150">
 <br>
 <br>
 
@@ -49,7 +49,7 @@ Google maps APIを活用し、訪れたい場所や写真スポットを簡単�
 訪れた都道府県が日本地図に表示され、日本全国を巡る過程を一目で確認できます。次の旅行先を考えるのに役立つほか、思い出を振り返るきっかけにもなります。  
 
 <div align="center">
-  <img src="./app/assets/images/japan-map.png" width="50%">
+  <img src="./app/assets/images/japan-map.png" width="500">
 </div>
 <br>
 <br>
