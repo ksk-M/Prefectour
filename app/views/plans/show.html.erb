@@ -126,7 +126,7 @@
             <tbody>
               <% @plan_destinations.each do |destination| %>
                 <tr>
-                  <td class="text-nowrap text-secondary"><%= destination.category.name %></td>
+                  <td class="text-nowrap text-secondary"><%= destination.category.present? ? destination.category.name : "未設定" %></td>
                   <td><%= link_to destination.name, destination_path(destination.id) %></td>
                   <td class="d-none d-lg-table-cell"><%= destination.address %></td>
                   <td class="text-nowrap <%= "text-danger" if destination.status == "未訪問" %>">
